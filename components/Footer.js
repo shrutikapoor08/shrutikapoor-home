@@ -84,8 +84,7 @@ export default function Footer({ copyrightText }) {
         {copyrightText}
       </p>
       <ThemeSwitcher />
-  <form action="https://tinyletter.com/shrutikapoor" method="post" target="popupwindow" onSubmit="window.open('https://tinyletter.com/shrutikapoor', 'popupwindow', 'scrollbars=yes,width=800,height=600')"><p><label htmlFor="tlemail">Enter your email address</label></p><p><input type="text" style="width:140px" name="email" id="tlemail" /></p><input type="hidden" value="1" name="embed"/><input type="submit" value="Subscribe" /><p><a href="https://tinyletter.com" target="_blank" rel="noreferrer"></a></p></form>
-        
+         
     </footer>
   );
 }
