@@ -6,7 +6,7 @@ export default function Newsletter() {
           <h2 className="sm:text-3xl text-2xl font-medium title-font mb-4">
             Get articles like this in your inbox
           </h2>
-          <p> I won\'t spam. Ever.</p>
+          <p> I will not spam. Ever.</p>
         </div>
         <div className="flex w-full sm:flex-row flex-row mx-auto px-8 sm:space-x-4 sm:space-y-0 space-y-4 sm:px-0 items-end">
           <div className="relative flex-grow w-full">
