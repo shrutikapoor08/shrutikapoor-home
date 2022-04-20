@@ -1,15 +1,15 @@
 export default function Newsletter() {
   return (
-    <section class="text-gray-600 body-font">
-      <div class="container px-5 py-24 mx-auto">
-        <div class="flex flex-col text-center w-full mb-12">
-          <h2 class="sm:text-3xl text-2xl font-medium title-font mb-4">
+    <section className="text-gray-600 body-font">
+      <div className="container px-5 py-24 mx-auto">
+        <div className="flex flex-col text-center w-full mb-12">
+          <h2 className="sm:text-3xl text-2xl font-medium title-font mb-4">
             Get articles like this in your inbox
           </h2>
-          <p> I won't spam. Ever.</p>
+          <p> I won\'t spam. Ever.</p>
         </div>
-        <div class="flex w-full sm:flex-row flex-row mx-auto px-8 sm:space-x-4 sm:space-y-0 space-y-4 sm:px-0 items-end">
-          <div class="relative flex-grow w-full">
+        <div className="flex w-full sm:flex-row flex-row mx-auto px-8 sm:space-x-4 sm:space-y-0 space-y-4 sm:px-0 items-end">
+          <div className="relative flex-grow w-full">
             <form
               data-netlify="true"
               action="https://tinyletter.com/shrutikapoor"
