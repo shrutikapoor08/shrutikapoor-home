@@ -8,21 +8,21 @@ export default function Newsletter() {
           </h2>
           <p> I will not spam. I will not sell your data. Ever.</p>
         </div>
-        <div className="flex w-full sm:flex-row flex-row mx-auto px-8 sm:space-x-4 sm:space-y-0 space-y-4 sm:px-0 items-end">
-          <div className="relative flex-grow w-full">
-            <form
-              data-netlify="true"
-              action="https://tinyletter.com/shrutikapoor"
-              method="post"
-              target="popupwindow"
-              onSubmit={() =>
-                window.open(
-                  'https://tinyletter.com/shrutikapoor',
-                  'popupwindow',
-                  'scrollbars=yes,width=800,height=600'
-                )
-              }
-            >
+        <div className="px-8 space-y-4">
+          <form
+            data-netlify="true"
+            action="https://tinyletter.com/shrutikapoor"
+            method="post"
+            target="popupwindow"
+            onSubmit={() =>
+              window.open(
+                'https://tinyletter.com/shrutikapoor',
+                'popupwindow',
+                'scrollbars=yes,width=800,height=600'
+              )
+            }
+          >
+            <div className="flex flex-col sm:flex-row gap-4 items-center justify-center">
               <input
                 type="email"
                 id="tlemail"
@@ -36,8 +36,8 @@ export default function Newsletter() {
                 value="Subscribe"
                 className="bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg"
               />
-            </form>
-          </div>
+            </div>
+          </form>
         </div>
       </div>
     </section>
