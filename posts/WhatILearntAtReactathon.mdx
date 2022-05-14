@@ -1,0 +1,130 @@
+---
+date: May 12, 2022
+description: 'Last week I had the pleasure of attending and speaking at Reactathon 2022 in Berkeley. Here is a recap of what I learnt at Reactathon 2022.'
+title: What I learnt at Reactathon 2022
+---
+
+![Reactathon banner](https://res.cloudinary.com/practicaldev/image/fetch/s--mD54TtAS--/c_imagga_scale,f_auto,fl_progressive,h_420,q_auto,w_1000/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/k61njmqwpht5vvsljffd.jpeg)
+Last week I had the pleasure of attending and speaking at Reactathon. This blog post is a cumulation of my notes and what I learnt at Reactathon. [Here is the livestream if you want to watch the YouTube stream.](https://www.youtube.com/watch?v=Ck-e3hd3pKw)
+
+**Keynote: Navigating the Iceberg of the Web - Lee Robinson**
+
+Lee talked about why React is so popular and says it’s because React helps us think in terms of components. React succeeded because of its community. Web is drastically evolving too. Lee says that web is the largest app store in the world since anyone can put content in the world in seconds and share with the world.
+
+Lee also talks about the iceberg of the web and says that React has delegated libraries or frameworks to come up with solutions such as performance, SEO, availability, caching and more.
+
+A few web archictecture problems that React will help solve in the future are -
+
+1. Show most relevant content immediately
+2. Instantly respond to user input
+3. Navigate without blocking user input
+
+We want to show content to the user before anything JS has loaded on the page. With React 18, we can show a the page immediately and wait for a slow component when it comes up. Frameworks can take these concurrent rendering features and solve the problems of data fetching and give a really great DX.
+
+Lee announced that NextJS’s new version will fully support all features of React 18 - nested routes, client and server routing, features like startTransition, suspense and server components.
+
+**Keynote: Kent C Dodds: Shipping to the edge.**
+
+What is the edge?
+
+We have a client and server. Server has some information that client wants, such as HTML documents. Users wherever they are need to talk to the same server. The series of “tubes” that they need to talk to can take exceedingly long and reduce the user experience. Some of the information that user needs is same for everybody. These kind of static files such as image, css, assets can stay in CDN which can be spread everywhere in the world. Developers can dynamically generate HTML for a specific user. This helps to let the user go to the closest location to them and make the request a lot faster and thats edge.
+
+Remix - V7 of React Router supports server rendering, compiling, normalizes the Edge to the web standard, moves code to the Edge, progressively enhances on the edge and streams from the edge.
+
+**Rendering Pattern - Lydia Hallie**
+
+Core web vitals -
+
+1. **TTFB**: Time to first byte - time it takes for a client to receive the first byte of page content.
+
+1. **FCP**: First Contentful Paint: Time it takes the browser to render the first piece of content after navigation
+
+1. **LCP**: Largest Contentful Paint: Time it takes to load and render the page’s main content.
+
+1. **TTI**: time to interactive: Time from when the page start loading to when its reliably responding to user input quikcly.
+
+1. **CLS**: Cumulative Layout shift: Measures visual stability to avoid unexpected layout shift.
+
+1. **FID**: First Input Delay: Time from when the user interacts with the page to the time when the event handlers are able to run
+
+Right rendering patterns can massively help your apps performance.
+
+How do you know which one makes the most sense for your website?
+
+**Static rendering:** is a very performant pattern. The entire HTML gets generated at build time and is easily cacheable by CDN.
+
+**Plain static rendering:** can be used for pages that have no dynamic data at all. It shows the same data for everyone at all. As the server gives back HTML, the edge location closest to the user caches the response.
+
+**Static rendering with client-side fetch:** Great for page with dynamic data. We can server render the HTML page and fetch the data from the api provider. The LCP suffers in this case because we need to make an API call to see the actual data.
+
+**Static with getStaticProps:** This method runs sertver side on build time. Good solution for dynamic data when data is available at build time. We dont need to call API. Generated HTML already has data. Not good for websites with lots of data since it can lead to high build times. we only renew the data at build time.
+
+**Incremental static regeneration(ISR):** We can only pre-render certain pages and render the rest on demand whent the user actually them. Much shorter build time. Automatically invalidate the cache. It is likely that the content doesnt update after the elapsed time of cache invalidation and we are unecessarily updating the page.
+
+**On-demand ISR:** Here instead of automatically generating the page after the elapsed cache time, we can regenerate a page triggered by a certain event. It gives all the performance benefits.
+
+For something that is highly tailored to a user, such as depending on a cookie, use server side rendering instead of static rendering.
+
+**What’s new in React 18 - Shruti Kapoor (Me 🙋🏽‍♀️)**
+
+I wrote a blog post in detail about What’s new in React 18. [Take a look here.](https://shrutikapoor.dev/posts/React-QuickGuideCoreConcepts)
+
+**Serverless for frontend devs - Swizec Teller**
+
+Instead of having to deal with the headache of spinning up a server, setting up auth, scaling it up, you could instead call a function that returns your response. Swizec says that a modern backend is a JavaScript function. All you have to care is the actual logic for writing the function. Interesting to hear that Wordle is purely a front-end app. Serverless gives ease of use to engineers to write business logic and not worry about the dev ops stuff.
+
+**GoodBye useEffect - David Khourshid**
+
+This talk David talks about the complications of using useEffect.
+
+useEffect is used for synchronization. We have two types of events -
+
+1. Synchronized: event handlers, subscriptions.
+2. Fire and forget effects.
+
+Action effect goes in event handlers. These effects will happen only once in event handlers.
+
+![David showing that effects sorta happen in event handlers](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/zeemaqwelj5tl9qrh6je.png)
+When do effects happen? In state transitions. Something needs to trigger an effect.
+
+A state transition like this can describe what effects should be run on state change -
+
+```
+[state, event] ⇒ [nextState, effects]
+```
+
+So action effects should actually happen in state transitions but it just happen to be in event handlers in React since state transitions happens in event handlers in React.
+
+**Jenn Creighton, Netflix: Now and .then: Debugging Async JavaScript**
+
+Jenn talks about how to find issues with code that is valid but incorrect.
+
+1. Use `reject` to throw an error in async code.
+2. Use `catch` to throw an error after all `then`s
+3. Use debugger to find issues in async code.
+
+She also recommends “being the bad dog” - Learn all the ways in code could go wrong, you will learn how to find bugs and issues faster.
+
+**Ryan Florence, Remix: When To Fetch: Remixing React Router**
+
+Ryan talks about some tactics to fetch better and avoid showing spinner for too long in a UI. He recommends reducing the job of a component from initiator + reader + fallback by initiating fetches before you render by decoupling iniating, reading from falling back. Ryan talks about how Remix can help solve this problem using `loader` . Remix helps you unblock the fetches on the server since the server knows the URL And it can initiates the fetches there. This helps in reducing LCP significantly. Remix also takes advantage of streaming. This helps in letting browser download everything in parallel. Remix does it using `deferred`.
+
+I think it is pretty neat.
+
+**Michael Chan, Chromatic: Tame the Component Multiverse**
+
+Michael talks about the UI multiverse and UI Visual Testing and how to produce tests automatically using Storybook. Storybook also helps you do accessibility tests, verifying event handlers. Chromatic integrates with Storybook and helps in visual testing by taking screenshots of every story and comparing the diff. It also does interaction test such as click a button and open a model.
+
+![Michael showing UI testing continuum](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/kc2tim23tpcxhrlwu47a.png)
+**Shawn Swyx Wang, Temporal: The third age of JavaScript: Three years in**
+
+Shawn does a really cool tech radar for the third age of JavaScript aka the modern age and the future and talks about the trend of JS. This age is about collapsing layers of tooling. In 2022, ES modules are growing. IE support has been dropped. NextJS and Typescript are winning. If you have been thinking of re-skilling, Shawn recommends web assembly since it is still in its web assembly. Here’s the mental model that Shawn uses to describe the third age -
+
+![Mental model of javascript can be described by a rainbow](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/9sb0j1rhyfr2ur9p1x8k.png)
+
+---
+
+If you enjoyed this article, share it with someone else.
+
+- For more frequent tips, [stay in touch on Twitter](http://twitter.com/shrutikapoor08)
+- [Want to say Thank You? Buy me a coffee](https://www.buymeacoffee.com/shrutikapoor)
