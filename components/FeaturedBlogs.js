@@ -2,7 +2,7 @@ import Link from 'next/link';
 import ArrowIcon from './ArrowIcon';
 
 const FeaturedBlogs = ({ posts }) => (
-  <main className="w-full flex flex-col mt-32 mb-20">
+  <main className="w-full flex flex-col mt-32 mb-20 px-5 overflow-hidden">
     <div className="flex flex-row justify-between">
       <h2 className="text-3xl mb-10 w-auto"> Latest Blog Posts </h2>
 
