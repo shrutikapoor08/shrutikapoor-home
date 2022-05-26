@@ -6,12 +6,11 @@ const FeaturedBlogs = ({ posts }) => (
     <div className="flex flex-row justify-between">
       <h2 className="text-3xl mb-10 w-auto"> Latest Blog Posts </h2>
 
-      <a
-        className="border-0 py-2 px-8 focus:outline-none hover:text-blue-600 hover:font-bold rounded text-md"
-        href="/blog"
-      >
-        Read all articles
-      </a>
+      <Link href="/blog">
+        <a className="border-0 py-2 px-8 focus:outline-none hover:text-blue-600 hover:font-bold rounded text-md">
+          Read all articles
+        </a>
+      </Link>
     </div>
     <ul className="grid md:grid-cols-1 lg:grid-cols-3 gap-5 mb-10">
       {posts &&

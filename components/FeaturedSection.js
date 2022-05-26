@@ -4,12 +4,12 @@ const FeaturedSection = () => (
   <div className="grid grid-cols-8 gap-4 mt-10 mb-20">
     <div className="col-span-full lg:grid-cols-2 lg:col-start-5 lg:col-span-7 flex justify-center">
       <img
-        className="rounded-full w-1/2 md:w-72"
+        className="rounded-full w-1/2 md:w-72 lg:w-auto"
         src="https://avatars.githubusercontent.com/u/2525914?v=4"
       />
     </div>
-    <div className="col-span-full lg:grid-cols-2 lg:col-start-1 lg:row-start-1 lg:col-span-4 flex flex-col items-center place-items-start sm:text-center">
-      <h2 className="text-3xl md:text-4xl m-auto mt-10">
+    <div className="col-span-full lg:grid-cols-2 lg:col-start-1 lg:row-start-1 lg:col-span-4 flex flex-col sm:items-center place-items-start sm:text-center lg:text-left lg:items-start">
+      <h2 className="text-3xl md:text-4xl lg:text-5xl m-auto mt-10">
         On a mission to make learning web development easier for everyone.
       </h2>
       <div className="flex mt-10">
