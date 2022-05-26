@@ -1,10 +1,10 @@
 export default function Newsletter() {
   return (
     <section className="body-font">
-      <div className="container px-5 py-24 mx-auto">
+      <div className="container px-5 py-24 mx-auto mt-auto">
         <div className="flex flex-col text-center w-full mb-12">
           <h2 className="sm:text-3xl text-2xl font-medium title-font mb-4">
-            Get articles like this in your inbox
+            Get latest blog article in your inbox.
           </h2>
           <p> I will not spam. I will not sell your data. Ever.</p>
         </div>
@@ -34,7 +34,7 @@ export default function Newsletter() {
               <input
                 type="submit"
                 value="Subscribe"
-                className="bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg"
+                className="bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg body-font"
               />
             </div>
           </form>
