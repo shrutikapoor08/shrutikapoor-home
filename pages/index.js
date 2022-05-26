@@ -11,6 +11,7 @@ import { getGlobalData } from '../utils/global-data';
 import SEO from '../components/SEO';
 import FeaturedSection from '../components/FeaturedSection';
 import FeaturedBlogs from '../components/FeaturedBlogs';
+import FeaturedSpeaking from '../components/FeaturedSpeaking';
 
 export default function Index({ posts, globalData }) {
   return (
@@ -23,6 +24,7 @@ export default function Index({ posts, globalData }) {
         </h1> */}
         <FeaturedSection />
         <FeaturedBlogs posts={posts.slice(0, 3)} />
+        <FeaturedSpeaking />
       </main>
       <Footer copyrightText={globalData.footerText} />
       <GradientBackground

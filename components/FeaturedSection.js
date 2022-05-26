@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 const FeaturedSection = () => (
   <div className="grid grid-cols-8 gap-4 mt-10 mb-20">
     <div className="col-span-full lg:grid-cols-2 lg:col-start-5 lg:col-span-7 flex justify-center">
@@ -11,18 +13,16 @@ const FeaturedSection = () => (
         On a mission to make learning web development easier for everyone.
       </h2>
       <div className="flex mt-10">
-        <a
-          className="py-4 px-10 mr-10 rounded-lg bg-opacity-75 bg-gradient-to-br from-blue-700 via-blue-800 to-gray-800 dark:text-white text-gray-300 hover:text-white text-lg mt-2 mb-2"
-          href="/blog"
-        >
-          Read Blog
-        </a>
-        <a
-          className="py-4 px-10 rounded-lg bg-opacity-75 bg-gradient-to-br from-blue-700 via-blue-800 to-gray-800 dark:text-white text-gray-300 hover:text-white text-lg mt-2 mb-2"
-          href="https://twitter.com/shrutikapoor08"
-        >
-          Get in Touch
-        </a>
+        <Link href="/blog">
+          <a className="py-4 px-10 mr-10 rounded-lg bg-opacity-75 bg-gradient-to-br from-blue-700 via-blue-800 to-gray-800 dark:text-white text-gray-300 hover:text-white text-lg mt-2 mb-2">
+            Read Blog
+          </a>
+        </Link>
+        <Link href="https://twitter.com/shrutikapoor08">
+          <a className="py-4 px-10 rounded-lg bg-opacity-75 bg-gradient-to-br from-blue-700 via-blue-800 to-gray-800 dark:text-white text-gray-300 hover:text-white text-lg mt-2 mb-2">
+            Get in Touch
+          </a>
+        </Link>
       </div>
     </div>
   </div>

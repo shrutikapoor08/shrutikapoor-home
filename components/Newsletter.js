@@ -4,7 +4,7 @@ export default function Newsletter() {
       <div className="container px-5 py-24 mx-auto mt-auto">
         <div className="flex flex-col text-center w-full mb-12">
           <h2 className="sm:text-3xl text-2xl font-medium title-font mb-4">
-            Get latest blog article in your inbox.
+            Get latest blog articles in your inbox.
           </h2>
           <p> I will not spam. I will not sell your data. Ever.</p>
         </div>
