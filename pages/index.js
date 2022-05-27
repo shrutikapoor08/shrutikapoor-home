@@ -1,6 +1,5 @@
 import Link from 'next/link';
-import { getPosts } from '../utils/mdx-utils';
-
+import { getPosts, getTalks } from '../utils/mdx-utils';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import LayoutFullWidth, {
@@ -11,9 +10,9 @@ import { getGlobalData } from '../utils/global-data';
 import SEO from '../components/SEO';
 import FeaturedSection from '../components/FeaturedSection';
 import FeaturedBlogs from '../components/FeaturedBlogs';
-import FeaturedSpeaking from '../components/FeaturedSpeaking';
+import FeaturedSpeaking from '../components/FeaturedTalks';
 
-export default function Index({ posts, globalData }) {
+export default function Index({ posts, talks, globalData }) {
   return (
     <LayoutFullWidth>
       <SEO title={globalData.name} description={globalData.blogTitle} />
@@ -24,7 +23,7 @@ export default function Index({ posts, globalData }) {
         </h1> */}
         <FeaturedSection />
         <FeaturedBlogs posts={posts.slice(0, 3)} />
-        <FeaturedSpeaking />
+        <FeaturedSpeaking talks={talks} />
       </main>
       <Footer copyrightText={globalData.footerText} />
       <GradientBackground
@@ -41,7 +40,9 @@ export default function Index({ posts, globalData }) {
 
 export function getStaticProps() {
   const posts = getPosts();
+  const talks = getTalks();
+
   const globalData = getGlobalData();
 
-  return { props: { posts, globalData } };
+  return { props: { posts, talks, globalData } };
 }

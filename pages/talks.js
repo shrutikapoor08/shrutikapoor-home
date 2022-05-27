@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { getPosts } from '../utils/mdx-utils';
+import { getTalks } from '../utils/mdx-utils';
 
 import Footer from '../components/Footer';
 import Header from '../components/Header';
@@ -10,43 +10,39 @@ import ArrowIcon from '../components/ArrowIcon';
 import { getGlobalData } from '../utils/global-data';
 import SEO from '../components/SEO';
 
-export default function Blog({ posts, globalData }) {
+export default function Talks({ talks, globalData }) {
   return (
     <LayoutFullWidth>
       <div className="max-w-5xl">
         <SEO title={globalData.name} description={globalData.blogTitle} />
-        <Header name="Blog" />
+        <Header name="Talks and Speaking Engagements" />
         <main className="w-full mt-auto mb-10 px-5">
-          <ul className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-            {posts.map((post) => (
+          <ul className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+            {talks.map((talk) => (
               <li
-                key={post.filePath}
+                key={talk.filePath}
                 className="rounded-lg backdrop-blur-lg bg-white dark:bg-black dark:bg-opacity-30 bg-opacity-10 hover:bg-opacity-40 dark:hover:bg-opacity-50 transition border border-gray-800 dark:border-white border-opacity-10 dark:border-opacity-10 last:border-b"
               >
                 <Link
-                  as={`/posts/${post.filePath.replace(/\.mdx?$/, '')}`}
-                  href={`/posts/[slug]`}
+                  as={`/talks/${talk.filePath.replace(/\.mdx?$/, '')}`}
+                  href={`/talks/[slug]`}
                 >
                   <div className="overflow-hidden rounded-lg cursor-pointer">
-                    {post.data.featuredImage && (
-                      <img src={post.data.featuredImage} />
+                    {talk.data.link && (
+                      <iframe
+                        height="215"
+                        width="100%"
+                        src={talk.data.link}
+                        title={talk.data.title}
+                        frameBorder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                      ></iframe>
                     )}
-                    <a className="py-6 px-6 block focus:outline-none focus:ring-4">
-                      <h2 className="lg:text-xl md:text-xl font-semibold">
-                        {post.data.title}
+                    <a className="py-4 px-3 block focus:outline-none focus:ring-4">
+                      <h2 className="lg:text-lg md:text-xl font-semibold">
+                        {talk.data.conference} - {talk.data.title}
                       </h2>
-                      {post.data.description && (
-                        <p className="mt-3 mb-3 opacity-60">
-                          {post.data.description}
-                        </p>
-                      )}
-
-                      {post.data.date && (
-                        <p className="uppercase mb-3 font-bold opacity-60">
-                          {post.data.date}
-                        </p>
-                      )}
-                      <ArrowIcon className="mt-4" />
                     </a>
                   </div>
                 </Link>
@@ -69,8 +65,8 @@ export default function Blog({ posts, globalData }) {
 }
 
 export function getStaticProps() {
-  const posts = getPosts();
+  const talks = getTalks();
   const globalData = getGlobalData();
 
-  return { props: { posts, globalData } };
+  return { props: { talks, globalData } };
 }

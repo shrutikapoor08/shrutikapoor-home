@@ -15,7 +15,7 @@ const FeaturedSection = () => (
       <div className="flex mt-10">
         <Link href="/blog">
           <a className="py-4 px-10 mr-10 rounded-lg bg-opacity-75 bg-gradient-to-br from-blue-700 via-blue-800 to-gray-800 dark:text-white text-gray-300 hover:text-white text-lg mt-2 mb-2">
-            Read Blog
+            Read Blogs
           </a>
         </Link>
         <Link href="https://twitter.com/shrutikapoor08">

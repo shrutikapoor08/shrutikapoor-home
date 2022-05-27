@@ -6,12 +6,17 @@ import rehypePrism from '@mapbox/rehype-prism';
 
 // POSTS_PATH is useful when you want to get the path to a specific file
 export const POSTS_PATH = path.join(process.cwd(), 'posts');
+export const TALKS_PATH = path.join(process.cwd(), 'talks');
 
-// postFilePaths is the list of all mdx files inside the POSTS_PATH directory
-export const postFilePaths = fs
-  .readdirSync(POSTS_PATH)
-  // Only include md(x) files
-  .filter((path) => /\.mdx?$/.test(path));
+// filePaths is the list of all mdx files inside the PATH directory
+export const filePaths = (PATH) =>
+  fs
+    .readdirSync(PATH)
+    // Only include md(x) files
+    .filter((path) => /\.mdx?$/.test(path));
+
+export const talkFilePaths = filePaths(TALKS_PATH);
+export const postFilePaths = filePaths(POSTS_PATH);
 
 export const sortPostsByDate = (posts) => {
   return posts.sort((a, b) => {
@@ -22,7 +27,7 @@ export const sortPostsByDate = (posts) => {
 };
 
 export const getPosts = () => {
-  let posts = postFilePaths.map((filePath) => {
+  let posts = filePaths(POSTS_PATH).map((filePath) => {
     const source = fs.readFileSync(path.join(POSTS_PATH, filePath));
     const { content, data } = matter(source);
 
@@ -36,6 +41,23 @@ export const getPosts = () => {
   posts = sortPostsByDate(posts);
 
   return posts;
+};
+
+export const getTalks = () => {
+  let talks = filePaths(TALKS_PATH).map((filePath) => {
+    const source = fs.readFileSync(path.join(TALKS_PATH, filePath));
+    const { content, data } = matter(source);
+
+    return {
+      content,
+      data,
+      filePath,
+    };
+  });
+
+  talks = sortPostsByDate(talks);
+
+  return talks;
 };
 
 export const getPostBySlug = async (slug) => {
@@ -54,6 +76,24 @@ export const getPostBySlug = async (slug) => {
   });
 
   return { mdxSource, data, postFilePath };
+};
+
+export const getTalkBySlug = async (slug) => {
+  const talkFilePath = path.join(TALKS_PATH, `${slug}.mdx`);
+  const source = fs.readFileSync(talkFilePath);
+
+  const { content, data } = matter(source);
+
+  const mdxSource = await serialize(content, {
+    // Optionally pass remark/rehype plugins
+    mdxOptions: {
+      remarkPlugins: [],
+      rehypePlugins: [rehypePrism],
+    },
+    scope: data,
+  });
+
+  return { mdxSource, data, talkFilePath };
 };
 
 export const getNextPostBySlug = (slug) => {
