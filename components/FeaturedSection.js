@@ -8,7 +8,7 @@ const FeaturedSection = () => (
         src="https://avatars.githubusercontent.com/u/2525914?v=4"
       />
     </div>
-    <div className="col-span-full lg:grid-cols-2 lg:col-start-1 lg:row-start-1 lg:col-span-4 flex flex-col items-center text-center md:place-items-start lg:text-left lg:items-start">
+    <div className="col-span-full lg:grid-cols-2 lg:col-start-1 lg:row-start-1 lg:col-span-4 flex flex-col items-center text-center lg:text-left lg:items-start">
       <h2 className="text-3xl md:text-4xl lg:text-5xl m-auto mt-10">
         On a mission to make learning web development easier for everyone.
       </h2>
