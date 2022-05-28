@@ -2,11 +2,12 @@ import Link from 'next/link';
 import ArrowIcon from './ArrowIcon';
 
 const FeaturedTalks = ({ talks }) => (
-  <main className="w-full flex flex-col mt-32 mb-20 px-5 overflow-hidden">
-    <div className="flex flex-row justify-between">
-      <h2 className="text-3xl mb-10 w-auto"> Talks and Podcasts </h2>
+  <main className="w-full flex flex-col mt-24 mb-24 overflow-hidden">
+    <div className="flex flex-row justify-between mb-10">
+      <h2 className="text-xl lg:text-3xl w-auto"> Talks and Podcasts </h2>
+
       <Link href="/talks">
-        <a className="border-0 py-2 px-8 focus:outline-none hover:text-blue-600 hover:font-bold rounded text-md">
+        <a className="border-0 focus:outline-none hover:text-blue-600 lg:hover:font-bold rounded text-base md:text-md">
           Browse more talks
         </a>
       </Link>

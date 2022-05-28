@@ -12,14 +12,14 @@ const FeaturedSection = () => (
       <h2 className="text-3xl md:text-4xl lg:text-5xl m-auto mt-10">
         On a mission to make learning web development easier for everyone.
       </h2>
-      <div className="flex mt-10">
+      <div className="flex mt-10 mb-2 w-full justify-evenly">
         <Link href="/blog">
-          <a className="py-4 px-10 mr-10 rounded-lg bg-opacity-75 bg-gradient-to-br from-blue-700 via-blue-800 to-gray-800 dark:text-white text-gray-300 hover:text-white text-lg mt-2 mb-2">
+          <a className="py-4 px-4 md:px-7 rounded-lg bg-opacity-75 bg-gradient-to-br from-blue-700 via-blue-800 to-gray-800 dark:text-white text-gray-300 hover:text-white text-lg ">
             Read Blogs
           </a>
         </Link>
         <Link href="https://twitter.com/shrutikapoor08">
-          <a className="py-4 px-10 rounded-lg bg-opacity-75 bg-gradient-to-br from-blue-700 via-blue-800 to-gray-800 dark:text-white text-gray-300 hover:text-white text-lg mt-2 mb-2">
+          <a className="py-4 px-4 md:px-7 rounded-lg bg-opacity-75 bg-gradient-to-br from-blue-700 via-blue-800 to-gray-800 dark:text-white text-gray-300 hover:text-white text-lg ">
             Send a Hey! 👋
           </a>
         </Link>
