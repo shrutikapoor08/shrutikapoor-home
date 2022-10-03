@@ -14,14 +14,14 @@ const FeaturedSection = () => (
       </h2>
       <div className="flex mt-10 mb-2 w-full justify-evenly">
         <Link href="/blog">
-          <a className="py-4 px-4 md:px-7 rounded-lg bg-opacity-75 bg-gradient-to-br from-blue-700 via-blue-800 to-gray-800 dark:text-white text-gray-300 hover:text-white text-lg ">
+          <div className="py-4 px-4 md:px-7 rounded-lg bg-opacity-75 bg-gradient-to-br from-blue-700 via-blue-800 to-gray-800 dark:text-white text-gray-300 hover:text-white text-lg ">
             Read Blogs
-          </a>
+          </div>
         </Link>
         <Link href="https://twitter.com/shrutikapoor08">
-          <a className="py-4 px-4 md:px-7 rounded-lg bg-opacity-75 bg-gradient-to-br from-blue-700 via-blue-800 to-gray-800 dark:text-white text-gray-300 hover:text-white text-lg ">
+          <div className="py-4 px-4 md:px-7 rounded-lg bg-opacity-75 bg-gradient-to-br from-blue-700 via-blue-800 to-gray-800 dark:text-white text-gray-300 hover:text-white text-lg ">
             Send a Hey! 👋
-          </a>
+          </div>
         </Link>
       </div>
     </div>

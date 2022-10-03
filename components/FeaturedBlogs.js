@@ -7,9 +7,9 @@ const FeaturedBlogs = ({ posts }) => (
       <h2 className="text-xl lg:text-3xl w-auto"> Latest Blog Posts </h2>
 
       <Link href="/blog">
-        <a className="border-0 focus:outline-none hover:text-blue-600 lg:hover:font-bold rounded text-base md:text-md">
+        <div className="border-0 focus:outline-none hover:text-blue-600 lg:hover:font-bold rounded text-base md:text-md">
           Read all articles
-        </a>
+        </div>
       </Link>
     </div>
     <ul className="grid md:grid-cols-1 lg:grid-cols-3 gap-5 mb-10">
@@ -27,7 +27,10 @@ const FeaturedBlogs = ({ posts }) => (
                 {post.data.featuredImage && (
                   <img src={post.data.featuredImage} />
                 )}
-                <a className="py-6 px-6 block focus:outline-none focus:ring-4">
+                <a
+                  className="py-6 px-6 block focus:outline-none focus:ring-4"
+                  href={`/posts/[slug]`}
+                >
                   <h2 className="lg:text-xl md:text-2xl font-semibold">
                     {post.data.title}
                   </h2>
