@@ -39,11 +39,11 @@ export default function Talks({ talks, globalData }) {
                         allowFullScreen
                       ></iframe>
                     )}
-                    <a className="py-4 px-3 block focus:outline-none focus:ring-4">
+                    <div className="py-4 px-3 block focus:outline-none focus:ring-4">
                       <h2 className="lg:text-lg md:text-xl font-semibold">
                         {talk.data.conference} - {talk.data.title}
                       </h2>
-                    </a>
+                    </div>
                   </div>
                 </Link>
               </li>

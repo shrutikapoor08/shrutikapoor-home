@@ -6,10 +6,11 @@ const FeaturedTalks = ({ talks }) => (
     <div className="flex flex-row justify-between mb-10">
       <h2 className="text-xl lg:text-3xl w-auto"> Talks and Podcasts </h2>
 
-      <Link href="/talks">
-        <a className="border-0 focus:outline-none hover:text-blue-600 lg:hover:font-bold rounded text-base md:text-md">
-          Browse more talks
-        </a>
+      <Link
+        href="/talks"
+        className="border-0 focus:outline-none hover:text-blue-600 lg:hover:font-bold rounded text-base md:text-md"
+      >
+        Browse more talks
       </Link>
     </div>
     <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 mb-10">
@@ -35,11 +36,11 @@ const FeaturedTalks = ({ talks }) => (
                     allowFullScreen
                   ></iframe>
                 )}
-                <a className="py-4 px-3 block focus:outline-none focus:ring-4">
+                <div className="py-4 px-3 block focus:outline-none focus:ring-4">
                   <h2 className="lg:text-lg md:text-xl font-semibold">
                     {talk.data.conference} - {talk.data.title}
                   </h2>
-                </a>
+                </div>
               </div>
             </Link>
           </li>
