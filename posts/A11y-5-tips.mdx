@@ -1,0 +1,50 @@
+---
+title: Creating an accessible app in 5 simple steps
+description: "Often accessibility is left as an after-thought. When it is time to ship a feature, we do an accessibility test and find out that our site wasn't accessible and do a hacky fix. In this post, I will go over 5 things you can keep in mind WHILE building your app so you don't have to do a hacky slap at the end."
+date: October 27, 2022
+---
+
+# Is your site accessible?
+
+Being digitally accessible means your site should be able to be used by anyone - those with disabilities and those with abled bodies. Think about the last site you built, or your favorite site. Are you confident that anyone can use your site and perform the critical actions of the site? Have you considered folks with motor disability, visual disability, cognitive disability and auditory disability?
+
+Often accessibility is left as an after-thought. When it is time to ship a feature, we do an accessibility test and find out that our site wasn't accessible and do a hacky fix. Making a site accessible is a huge undertaking but if we keep accessibility in mind from the get-go itself, it makes it much easier to build an accessible web app. In this post, I will go over 5 things you can keep in mind WHILE building your app so you don't have to do a hacky slap at the end.
+
+# 5 things to keep in mind
+
+1. Semantinc HTML
+2. Tabindex
+3. Aria attributes
+4. Role
+5. Keyboard navigation and screen reader
+
+In short, S.T.A.R.K. If you need help remembering this, think of Tony Stark ![TonyStark](https://cdn.vox-cdn.com/uploads/chorus_image/image/55400215/ktokatitmir0.0.jpg)
+
+## Semantic HTML
+
+Using semantic HTML is important for accessibility. The reason is that assistive technologies such as screen readers are able to interpret what's on the page by looking at the HTML of the page. They enable users to take actions based on the elements. For eg, if a screen reader encounters `button`, it would signal the user to click on it. Let's consider some use-cases of what happens when semantic HTML is not used -
+
+1. Creating buttons by using `div` instead of `button`: `div` are container elements so when a screen reader encounters a div, it automatically assigns a role of `group` to it. When a screen reader user encounters a `div`, screen reader would announce `role="group"` and the user will completely miss that the `div` is interactive.
+
+2. Using CSS to fake headings instead of using `h1-6` tags: Heading tags such as `<h1>`, `<h2>` signal an assitive technology that this is important text and the screen reader will announce "Heading". When you use CSS to make a heading instead of using correct semantics, the significance of the text is lost to a screen reader.
+
+## Tabindex
+
+Adding a `tabindex` is a very widely used method to make interactive elements keyboard navigable. When `tabindex` is added to an element, a user is able to keyboard navigate to it. A caution though - `tabindex` should only be added to interactive elements such as `button`, `a`.
+`tabindex` should only have a value of `0` or `-1`. Do not assign a value of > 1 to tabindex.
+
+## Aria attributes
+
+Aria attributes such as `aria-checked`, `aria-label` are used to give additional information to assistive technologies.
+
+## Role
+
+Aria roles such as `alert`, `grid`, `presentation` are assigned to elements to set their semantic values. For example, let's say you built a grid like element with the help of CSS and divs. You would use `role="grid"` to assign to this div element to let assistive technologies know about the type of the element.
+
+## Keyboard navigation and screen readers
+
+Every important element must be able to be navigated by a user using keyboard and screen reader. To do this, try navigating your site through a keyboard only.
+
+<!-- // Follow up
+<!-- - tools of testing accessibility
+- how to fix common accessibility mistakes -->

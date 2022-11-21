@@ -31,7 +31,10 @@ export default function Blog({ posts, globalData }) {
                     {post.data.featuredImage && (
                       <img src={post.data.featuredImage} />
                     )}
-                    <a className="py-6 px-6 block focus:outline-none focus:ring-4">
+                    <a
+                      className="py-6 px-6 block focus:outline-none focus:ring-4"
+                      href={`/posts/[slug]`}
+                    >
                       <h2 className="lg:text-xl md:text-xl font-semibold">
                         {post.data.title}
                       </h2>
