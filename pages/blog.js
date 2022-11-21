@@ -31,10 +31,7 @@ export default function Blog({ posts, globalData }) {
                     {post.data.featuredImage && (
                       <img src={post.data.featuredImage} />
                     )}
-                    <a
-                      className="py-6 px-6 block focus:outline-none focus:ring-4"
-                      href={`/posts/[slug]`}
-                    >
+                    <div className="py-6 px-6 block focus:outline-none focus:ring-4">
                       <h2 className="lg:text-xl md:text-xl font-semibold">
                         {post.data.title}
                       </h2>
@@ -50,7 +47,7 @@ export default function Blog({ posts, globalData }) {
                         </p>
                       )}
                       <ArrowIcon className="mt-4" />
-                    </a>
+                    </div>
                   </div>
                 </Link>
               </li>
