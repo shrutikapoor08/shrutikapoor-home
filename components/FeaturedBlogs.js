@@ -6,10 +6,11 @@ const FeaturedBlogs = ({ posts }) => (
     <div className="flex flex-row justify-between mb-10">
       <h2 className="text-xl lg:text-3xl w-auto"> Latest Blog Posts </h2>
 
-      <Link href="/blog">
-        <a className="border-0 focus:outline-none hover:text-blue-600 lg:hover:font-bold rounded text-base md:text-md">
-          Read all articles
-        </a>
+      <Link
+        href="/blog"
+        className="border-0 focus:outline-none hover:text-blue-600 lg:hover:font-bold rounded text-base md:text-md"
+      >
+        Read all articles
       </Link>
     </div>
     <ul className="grid md:grid-cols-1 lg:grid-cols-3 gap-5 mb-10">
@@ -27,7 +28,7 @@ const FeaturedBlogs = ({ posts }) => (
                 {post.data.featuredImage && (
                   <img src={post.data.featuredImage} />
                 )}
-                <a className="py-6 px-6 block focus:outline-none focus:ring-4">
+                <div className="py-6 px-6 block focus:outline-none focus:ring-4">
                   <h2 className="lg:text-xl md:text-2xl font-semibold">
                     {post.data.title}
                   </h2>
@@ -43,7 +44,7 @@ const FeaturedBlogs = ({ posts }) => (
                     </p>
                   )}
                   <ArrowIcon className="mt-4" />
-                </a>
+                </div>
               </div>
             </Link>
           </li>
