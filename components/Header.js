@@ -1,13 +1,16 @@
 import Link from 'next/link';
+import { getGlobalData } from '../utils/global-data';
 
 export default function Header({ name }) {
+  const globalData = getGlobalData();
+
   return (
     <header className="top-0">
-      <nav className="bg-white flex items-center justify-between flex-wrap bg-teal p-6">
-        <div className="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
+      <nav className="flex items-center justify-between flex-wrap bg-teal p-6 menu">
+        <div className="block flex-grow lg:flex lg:items-center lg:w-auto">
           <Link href="/">Home</Link>
           <Link href="/blog">Blog</Link>
-          <Link href="/talk">Talks</Link>
+          <Link href="/talks">Talks</Link>
         </div>
       </nav>
     </header>

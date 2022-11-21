@@ -17,7 +17,7 @@ export default function Blog({ posts, globalData }) {
         <SEO title={globalData.name} description={globalData.name} />
         <Header name="Blog" />
         <main className="w-full mt-auto mb-10 px-5">
-          <ul className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+          <ul className="grid md:grid-cols-2 lg:grid-cols-2 gap-5">
             {posts.map((post) => (
               <li
                 key={post.filePath}

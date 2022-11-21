@@ -18,9 +18,6 @@ export default function Index({ posts, talks, globalData }) {
       <SEO title={globalData.name} description={globalData.name} />
       <Header name={globalData.name} />
       <main className="mx-5">
-        {/* <h1 className="text-3xl lg:text-5xl text-center mb-12">
-          {globalData.name}
-        </h1> */}
         <FeaturedSection />
         <FeaturedBlogs posts={posts.slice(0, 3)} />
         <FeaturedSpeaking talks={talks} />
