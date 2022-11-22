@@ -24,16 +24,20 @@ In short, S.T.A.R.K. If you need help remembering this, think of Tony Stark ![To
 
 ## Semantic HTML
 
-Using semantic HTML is important for accessibility. The reason is that assistive technologies such as screen readers are able to interpret what's on the page by looking at the HTML of the page. They enable users to take actions based on the elements. For eg, if a screen reader encounters `button`, it would signal the user to click on it. Let's consider some use-cases of what happens when semantic HTML is not used -
+Using semantic HTML is important for accessibility. The reason is that assistive technologies such as screen readers are able to interpret what's on the page by parsing the HTML of the page. They enable users to take actions based on the elements. For eg, if a screen reader encounters `button`, it would signal the user to click on it. Let's consider some use-cases of what happens when semantic HTML is not used -
 
-1. Creating buttons by using `div` instead of `button`: `div` are container elements so when a screen reader encounters a div, it automatically assigns a role of `group` to it. When a screen reader user encounters a `div`, screen reader would announce `role="group"` and the user will completely miss that the `div` is interactive.
+1. Creating buttons by using `div` instead of `button`: `div` are container elements so when a screen reader encounters a div, it automatically thinks it is a presentational element. When a screen reader user encounters a `div` that has content or children within it, screen reader would announce `role="group"` and the user will completely miss that the `div` is interactive. Therefore, use the proper semantic element for its purpose. You get accessibility for free.
 
 2. Using CSS to fake headings instead of using `h1-6` tags: Heading tags such as `<h1>`, `<h2>` signal an assitive technology that this is important text and the screen reader will announce "Heading". When you use CSS to make a heading instead of using correct semantics, the significance of the text is lost to a screen reader.
 
+So, in conclusion, use semantic HTML whenever possible.
+
 ## Tabindex
 
-Adding a `tabindex` is a very widely used method to make interactive elements keyboard navigable. When `tabindex` is added to an element, a user is able to keyboard navigate to it. A caution though - `tabindex` should only be added to interactive elements such as `button`, `a`.
-`tabindex` should only have a value of `0` or `-1`. Do not assign a value of > 1 to tabindex.
+Adding a `tabindex` is a very widely used method to make interactive elements keyboard navigable. When `tabindex` is added to an element, a user is able to keyboard navigate to it and focus using assitive technologies.
+
+`tabindex` should only have a value of `0` or `-1`. A tabindex of `0` is used to set focus to an element in the default tabbing order, and a tabindex of `-1` is used to programmatically focus an element using JavaScript. Do not assign a value of > 1 to tabindex.
+A caution though - `tabindex` should only be added to interactive elements. It is not a good idea to add `tabindex` to elements such as `div`. Instead of adding tabindex, use a semantic element since semantic elements already are tabbable and do not need an additional `tabindex` value.
 
 ## Aria attributes
 

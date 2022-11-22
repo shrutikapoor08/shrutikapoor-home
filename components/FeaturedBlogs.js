@@ -6,11 +6,10 @@ const FeaturedBlogs = ({ posts }) => (
     <div className="flex flex-row justify-between mb-10">
       <h2 className="text-xl lg:text-3xl w-auto"> Latest Blog Posts </h2>
 
-      <Link
-        href="/blog"
-        className="border-0 focus:outline-none hover:text-blue-600 lg:hover:font-bold rounded text-base md:text-md"
-      >
-        Read all articles
+      <Link href="/blog">
+        <span className="border-0 focus:outline-none hover:text-blue-600 lg:hover:font-bold rounded text-base md:text-md cursor-pointer hover:underline">
+          Read all articles
+        </span>
       </Link>
     </div>
     <ul className="grid md:grid-cols-1 lg:grid-cols-3 gap-5 mb-10">
@@ -23,6 +22,7 @@ const FeaturedBlogs = ({ posts }) => (
             <Link
               as={`/posts/${post.filePath.replace(/\.mdx?$/, '')}`}
               href={`/posts/[slug]`}
+              passHref
             >
               <div className="overflow-hidden rounded-lg cursor-pointer">
                 {post.data.featuredImage && (
