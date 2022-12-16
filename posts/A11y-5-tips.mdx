@@ -6,13 +6,13 @@ featuredImage: https://cdn.vox-cdn.com/uploads/chorus_image/image/55400215/ktoka
 tags: Accessibility, Web Development
 ---
 
-# Is your site accessible?
+## Is your site accessible?
 
 Being digitally accessible means your site should be able to be used by anyone - those with disabilities and those with abled bodies. Think about the last site you built, or your favorite site. Are you confident that anyone can use your site and perform the critical actions of the site? Have you considered folks with motor disability, visual disability, cognitive disability and auditory disability?
 
 Often accessibility is left as an after-thought. When it is time to ship a feature, we do an accessibility test and find out that our site wasn't accessible and do a hacky fix. Making a site accessible is a huge undertaking but if we keep accessibility in mind from the get-go itself, it makes it much easier to build an accessible web app. In this post, I will go over 5 things you can keep in mind WHILE building your app so you don't have to do a hacky slap at the end.
 
-# 5 things to keep in mind
+## 5 things to keep in mind
 
 1. Semantinc HTML
 2. Tabindex
@@ -20,9 +20,11 @@ Often accessibility is left as an after-thought. When it is time to ship a featu
 4. Role
 5. Keyboard navigation and screen reader
 
-In short, S.T.A.R.K. If you need help remembering this, think of Tony Stark ![TonyStark](https://cdn.vox-cdn.com/uploads/chorus_image/image/55400215/ktokatitmir0.0.jpg)
+In short, S.T.A.R.K.
 
-## Semantic HTML
+If you need help remembering this, think of Tony Stark. ![TonyStark](https://cdn.vox-cdn.com/uploads/chorus_image/image/55400215/ktokatitmir0.0.jpg)
+
+### Semantic HTML
 
 Using semantic HTML is important for accessibility. The reason is that assistive technologies such as screen readers are able to interpret what's on the page by parsing the HTML of the page. They enable users to take actions based on the elements. For eg, if a screen reader encounters `button`, it would signal the user to click on it. Let's consider some use-cases of what happens when semantic HTML is not used -
 
@@ -32,25 +34,61 @@ Using semantic HTML is important for accessibility. The reason is that assistive
 
 So, in conclusion, use semantic HTML whenever possible.
 
-## Tabindex
+### Tabindex
 
-Adding a `tabindex` is a very widely used method to make interactive elements keyboard navigable. When `tabindex` is added to an element, a user is able to keyboard navigate to it and focus using assitive technologies.
+Adding a `tabindex` is used to make interactive elements keyboard navigable. When `tabindex` is added to an element, a user is able to navigate to it using only keyboard and/or assitive technologies.
 
-`tabindex` should only have a value of `0` or `-1`. A tabindex of `0` is used to set focus to an element in the default tabbing order, and a tabindex of `-1` is used to programmatically focus an element using JavaScript. Do not assign a value of > 1 to tabindex.
-A caution though - `tabindex` should only be added to interactive elements. It is not a good idea to add `tabindex` to elements such as `div`. Instead of adding tabindex, use a semantic element since semantic elements already are tabbable and do not need an additional `tabindex` value.
+1. A tabindex of `0` is used to set focus to an element in the default tabbing order,
+2. A tabindex of `-1` is used to programmatically focus an element using JavaScript.
+3. Do not assign a value of > 1 to tabindex.
 
-## Aria attributes
+A caution though - `tabindex` should only be added to interactive elements. It is not a good practie to add `tabindex` to elements such as `div`. Instead of adding tabindex, use a semantic element, such as `button` since semantic elements already are tabbable and do not need an additional `tabindex` value.
+
+### ARIA attributes
 
 Aria attributes such as `aria-checked`, `aria-label` are used to give additional information to assistive technologies.
 
-## Role
+Aria attributes are a set of HTML attributes that are used to provide additional information about the purpose and state of elements on a web page. These attributes are especially beneficial to assistive technologies to provide more context and better navigation for users.
 
-Aria roles such as `alert`, `grid`, `presentation` are assigned to elements to set their semantic values. For example, let's say you built a grid like element with the help of CSS and divs. You would use `role="grid"` to assign to this div element to let assistive technologies know about the type of the element.
+Some common aria-attributes include:
 
-## Keyboard navigation and screen readers
+1. aria-label: used to provide a label or name for an element.
+1. aria-hidden: used to indicate that an element should be hidden from assistive technologies. This can be useful for elements that are used for layout purposes but are not relevant to the content of the page.
+1. aria-describedby: used to associate an element with a description, which helps to provide context of an element.
+1. aria-live: used to indicate that an element's content may change dynamically, and that assistive technologies should pay attention to changes in the element's content.
 
-Every important element must be able to be navigated by a user using keyboard and screen reader. To do this, try navigating your site through a keyboard only.
+These attributes can be used in combination with each other and with standard HTML attributes to create more accessible and user-friendly web content.
 
-<!-- // Follow up
-<!-- - tools of testing accessibility
-- how to fix common accessibility mistakes -->
+### Role
+
+`aria-role` attribute is used to define the purpose of an HTML element and provide its semantic meaning. For example, if you are building a grid component with the help of CSS and divs, you can use `role="grid"` to let assistive technologies know about the semantic of the component.
+
+Some common `aria-role` include -
+
+1. `button`: used to indicate that an element should be treated as a button.
+2. `alert` : used to indicate that an element is an alertbox.
+3. `presentation`: used to indicate that an element is only presentational.
+
+It is important to exercise caution with `aria-role`. Remember to not overdo it.
+
+### Keyboard navigation and screen readers
+
+Many users with motor disability rely on keyboard and assitive technologies to navigate the web. Therefore it is critical that every component must be navigable using keyboard and screen reader. Keyboard accessibility can be tested by navigating a site using only keyboard. Here are some common keys -
+
+1. `tab` key to navigate to different sections of the site.
+2. `spacebar` to select elements such as checkbox.
+3. `enter` to press buttons.
+
+While testing keyboard navigation, ensure the following -
+
+1. Focus remains visible: Ensure that you can clearly see which element is being focussed in the page. Focus should always remain visible.
+2. Tab order: When tabbing through sections, the order of tabbing should follow the natural flow and logical structure of the website. It should not jump back and forth between sections.
+3. Keyboard traps: Ensure that when navigating with the keyboard, the focus doesn't get trapped on an element. For example, this could happen when a modal is opened, or the focus is navigated to a widget, such as calendar or emoji picker. Ensure that when you select an element in the widget, you are able to navigate back to the site.
+
+Overall, testing for accessibility during development is an important part of the process that can help to create more usable and accessible software for all users. Testing for accessibility early helps to provide a great user experience for everyone.
+
+In the next article, I will talk about the various accessibility tools and how to debug an accessibility issue.
+
+Until then, enjoy your holidays!
+
+Feliz Navidad.
