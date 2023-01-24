@@ -26,7 +26,7 @@ export default function Blog({ posts, globalData }) {
                 <Link
                   as={`/posts/${post.filePath.replace(/\.mdx?$/, '')}`}
                   href={`/posts/[slug]`}
-                >
+                  legacyBehavior>
                   <div className="overflow-hidden rounded-lg cursor-pointer">
                     {post.data.featuredImage && (
                       <img src={post.data.featuredImage} />

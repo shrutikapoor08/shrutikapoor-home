@@ -6,7 +6,7 @@ const FeaturedBlogs = ({ posts }) => (
     <div className="flex flex-row justify-between mb-10">
       <h2 className="text-xl lg:text-3xl w-auto"> Latest Blog Posts </h2>
 
-      <Link href="/blog">
+      <Link href="/blog" legacyBehavior>
         <span className="border-0 focus:outline-none hover:text-blue-600 lg:hover:font-bold rounded text-base md:text-md cursor-pointer hover:underline">
           Read all articles
         </span>
@@ -23,7 +23,7 @@ const FeaturedBlogs = ({ posts }) => (
               as={`/posts/${post.filePath.replace(/\.mdx?$/, '')}`}
               href={`/posts/[slug]`}
               passHref
-            >
+              legacyBehavior>
               <div className="overflow-hidden rounded-lg cursor-pointer">
                 {post.data.featuredImage && (
                   <img src={post.data.featuredImage} />

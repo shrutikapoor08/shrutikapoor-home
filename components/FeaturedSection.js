@@ -13,12 +13,12 @@ const FeaturedSection = () => (
         On a mission to make learning web development easier for everyone.
       </h2>
       <div className="flex mt-10 mb-2 w-full justify-between">
-        <Link href="/blog">
+        <Link href="/blog" legacyBehavior>
           <span className="py-4 px-4 md:px-7 rounded-lg bg-opacity-75 bg-gradient-to-br from-blue-700 via-blue-800 to-gray-800 dark:text-white text-gray-300 hover:text-white text-lg ">
             Read Blogs
           </span>
         </Link>
-        <Link href="https://twitter.com/shrutikapoor08">
+        <Link href="https://twitter.com/shrutikapoor08" legacyBehavior>
           <span className="py-4 px-4 md:px-7 rounded-lg bg-opacity-75 bg-gradient-to-br from-blue-700 via-blue-800 to-gray-800 dark:text-white text-gray-300 hover:text-white text-lg ">
             Send a Hey! 👋
           </span>

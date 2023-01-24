@@ -6,7 +6,7 @@ const FeaturedTalks = ({ talks }) => (
     <div className="flex flex-row justify-between mb-10">
       <h2 className="text-xl lg:text-3xl w-auto"> Talks and Podcasts </h2>
 
-      <Link href="/talks">
+      <Link href="/talks" legacyBehavior>
         <span className="border-0 focus:outline-none hover:text-blue-600 lg:hover:font-bold rounded text-base md:text-md cursor-pointer hover:underline">
           Browse more talks
         </span>
@@ -22,7 +22,7 @@ const FeaturedTalks = ({ talks }) => (
             <Link
               as={`/talks/${talk.filePath.replace(/\.mdx?$/, '')}`}
               href={`/talks/[slug]`}
-            >
+              legacyBehavior>
               <div className="overflow-hidden rounded-lg cursor-pointer">
                 {talk.data.link && (
                   <iframe

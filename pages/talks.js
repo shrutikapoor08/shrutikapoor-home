@@ -26,7 +26,7 @@ export default function Talks({ talks, globalData }) {
                 <Link
                   as={`/talks/${talk.filePath.replace(/\.mdx?$/, '')}`}
                   href={`/talks/[slug]`}
-                >
+                  legacyBehavior>
                   <div className="overflow-hidden rounded-lg cursor-pointer">
                     {talk.data.link && (
                       <iframe
