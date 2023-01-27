@@ -166,7 +166,7 @@
     "ufo" "^1.0.0"
     "unstorage" "^1.0.0"
 
-"@netlify/plugin-nextjs@^4.30.2":
+"@netlify/plugin-nextjs@^4.29.1":
   "integrity" "sha512-hqvdHlQEMfpTXh+fM0jwvtKla/gUS4gVKEZeQEkJlCzAJO+8XT2bTFAGrusNHLQ53L081nLXVXx1c+HUo0LFfQ=="
   "resolved" "https://registry.npmjs.org/@netlify/plugin-nextjs/-/plugin-nextjs-4.30.2.tgz"
   "version" "4.30.2"
