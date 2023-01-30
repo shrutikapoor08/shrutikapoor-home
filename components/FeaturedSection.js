@@ -10,7 +10,7 @@ const FeaturedSection = () => (
     </div>
     <div className="col-span-full lg:grid-cols-2 lg:col-start-1 lg:row-start-1 lg:col-span-4 flex flex-col items-center text-center lg:text-left lg:items-start">
       <h2 className="text-2xl md:text-2xl lg:text-3xl m-auto mt-10">
-        On a mission to make learning web development easier for everyone.
+        Empowering the Future of Web Development, One Developer at a Time.
       </h2>
       <div className="flex mt-10 mb-2 w-full justify-between">
         <Link href="/blog" legacyBehavior>
