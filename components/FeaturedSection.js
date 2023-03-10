@@ -18,9 +18,9 @@ const FeaturedSection = () => (
             Read Blogs
           </span>
         </Link>
-        <Link href="https://twitter.com/shrutikapoor08" legacyBehavior>
+        <Link href="https://bit.ly/shruti-discord" legacyBehavior>
           <span className="py-4 px-4 md:px-7 rounded-lg bg-opacity-75 bg-gradient-to-br from-blue-700 via-blue-800 to-gray-800 dark:text-white text-gray-300 hover:text-white text-lg ">
-            Send a Hey! 👋
+            Let's chat on Discord! 👋
           </span>
         </Link>
       </div>
