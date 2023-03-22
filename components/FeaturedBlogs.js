@@ -23,7 +23,8 @@ const FeaturedBlogs = ({ posts }) => (
               as={`/posts/${post.filePath.replace(/\.mdx?$/, '')}`}
               href={`/posts/[slug]`}
               passHref
-              legacyBehavior>
+              legacyBehavior
+            >
               <div className="overflow-hidden rounded-lg cursor-pointer">
                 {post.data.featuredImage && (
                   <img src={post.data.featuredImage} />
@@ -33,17 +34,19 @@ const FeaturedBlogs = ({ posts }) => (
                     {post.data.title}
                   </h2>
                   {post.data.description && (
-                    <p className="mt-3 mb-3 opacity-60">
+                    <p className="mt-3 mb-3 opacity-60 line-clamp-5">
                       {post.data.description}
                     </p>
                   )}
 
-                  {post.data.date && (
-                    <p className="uppercase mb-3 font-bold opacity-60">
-                      {post.data.date}
-                    </p>
-                  )}
-                  <ArrowIcon className="mt-4" />
+                  <div className="flex justify-between items-start mt-5">
+                    {post.data.date && (
+                      <p className="uppercase mb-3 font-bold opacity-60">
+                        {post.data.date}
+                      </p>
+                    )}
+                    <ArrowIcon />
+                  </div>
                 </div>
               </div>
             </Link>

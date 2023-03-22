@@ -10,47 +10,98 @@ import ArrowIcon from '../components/ArrowIcon';
 import { getGlobalData } from '../utils/global-data';
 import SEO from '../components/SEO';
 
+const NUM_LATEST = 3;
+
+const getLatestBlogPosts = (posts) => {
+  return posts.slice(0, NUM_LATEST);
+};
+
+const getOlderBlogPosts = (posts) => {
+  return posts.slice(NUM_LATEST, posts.length - 1);
+};
+
+const CardBlogPost = ({ post }) => {
+  return (
+    <li
+      key={post.filePath}
+      className="rounded-lg backdrop-blur-lg bg-white dark:bg-black dark:bg-opacity-30 bg-opacity-10 hover:bg-opacity-40 dark:hover:bg-opacity-50 transition border border-gray-800 dark:border-white border-opacity-10 dark:border-opacity-10 last:border-b"
+    >
+      <Link
+        as={`/posts/${post.filePath.replace(/\.mdx?$/, '')}`}
+        href={`/posts/[slug]`}
+        legacyBehavior
+      >
+        <div className="overflow-hidden rounded-lg cursor-pointer">
+          {post.data.featuredImage && <img src={post.data.featuredImage} />}
+          <div className="py-6 px-6 block focus:outline-none focus:ring-4">
+            <h2 className="lg:text-xl md:text-xl font-semibold">
+              {post.data.title}
+            </h2>
+            {post.data.description && (
+              <p className="mt-3 mb-3 opacity-60 line-clamp-5">
+                {post.data.description}
+              </p>
+            )}
+
+            {post.data.date && (
+              <p className="uppercase mb-3 font-bold opacity-60">
+                {post.data.date}
+              </p>
+            )}
+            <ArrowIcon className="mt-4" />
+          </div>
+        </div>
+      </Link>
+    </li>
+  );
+};
+
+const ListBlogPost = ({ post }) => {
+  return (
+    <li key={post.filePath} className="p-3 mt-8">
+      <Link
+        as={`/posts/${post.filePath.replace(/\.mdx?$/, '')}`}
+        href={`/posts/[slug]`}
+        legacyBehavior
+      >
+        <div className="overflow-hidden cursor-pointer">
+          {post.data.date && (
+            <p className="text-xs mb-3 opacity-60">{post.data.date}</p>
+          )}
+
+          <div className="block focus:outline-none focus:ring-4">
+            <h2 className="lg:text-base md:text-base font-semibold">
+              {post.data.title}
+            </h2>
+            <div className="">
+              {post.data.description && (
+                <p className="mt-5 text-base opacity-60 line-clamp-3">
+                  {post.data.description}
+                </p>
+              )}
+            </div>
+          </div>
+        </div>
+      </Link>
+    </li>
+  );
+};
+
 export default function Blog({ posts, globalData }) {
   return (
     <LayoutFullWidth>
       <div className="max-w-5xl">
         <SEO title={globalData.name} description={globalData.name} />
         <Header name="Blog" />
-        <main className="w-full mt-auto mb-10 px-5">
-          <ul className="grid md:grid-cols-2 lg:grid-cols-2 gap-5">
-            {posts.map((post) => (
-              <li
-                key={post.filePath}
-                className="rounded-lg backdrop-blur-lg bg-white dark:bg-black dark:bg-opacity-30 bg-opacity-10 hover:bg-opacity-40 dark:hover:bg-opacity-50 transition border border-gray-800 dark:border-white border-opacity-10 dark:border-opacity-10 last:border-b"
-              >
-                <Link
-                  as={`/posts/${post.filePath.replace(/\.mdx?$/, '')}`}
-                  href={`/posts/[slug]`}
-                  legacyBehavior>
-                  <div className="overflow-hidden rounded-lg cursor-pointer">
-                    {post.data.featuredImage && (
-                      <img src={post.data.featuredImage} />
-                    )}
-                    <div className="py-6 px-6 block focus:outline-none focus:ring-4">
-                      <h2 className="lg:text-xl md:text-xl font-semibold">
-                        {post.data.title}
-                      </h2>
-                      {post.data.description && (
-                        <p className="mt-3 mb-3 opacity-60">
-                          {post.data.description}
-                        </p>
-                      )}
-
-                      {post.data.date && (
-                        <p className="uppercase mb-3 font-bold opacity-60">
-                          {post.data.date}
-                        </p>
-                      )}
-                      <ArrowIcon className="mt-4" />
-                    </div>
-                  </div>
-                </Link>
-              </li>
+        <main className="w-full px-5 mt-12">
+          <ul className="grid md:grid-cols-1 lg:grid-cols-3 gap-5">
+            {getLatestBlogPosts(posts).map((post) => (
+              <CardBlogPost post={post} key={post.date} />
+            ))}
+          </ul>
+          <ul className="grid md:grid-cols-1 lg:grid-cols-3 my-5">
+            {getOlderBlogPosts(posts).map((post) => (
+              <ListBlogPost post={post} key={post.date} />
             ))}
           </ul>
         </main>
