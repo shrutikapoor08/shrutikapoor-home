@@ -2,7 +2,7 @@ import Link from 'next/link';
 import ArrowIcon from './ArrowIcon';
 
 const FeaturedTalks = ({ talks }) => (
-  <main className="w-full flex flex-col mt-24 mb-24 overflow-hidden">
+  <main className="w-full flex flex-col mt-12 mb-12 overflow-hidden">
     <div className="flex flex-row justify-between mb-10">
       <h2 className="text-xl lg:text-3xl w-auto"> Talks and Podcasts </h2>
 
@@ -22,7 +22,8 @@ const FeaturedTalks = ({ talks }) => (
             <Link
               as={`/talks/${talk.filePath.replace(/\.mdx?$/, '')}`}
               href={`/talks/[slug]`}
-              legacyBehavior>
+              legacyBehavior
+            >
               <div className="overflow-hidden rounded-lg cursor-pointer">
                 {talk.data.link && (
                   <iframe

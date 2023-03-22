@@ -33,12 +33,37 @@ export const getPosts = () => {
 
     return {
       content,
-      data,
+      data: { frontmatter },
       filePath,
     };
   });
 
   posts = sortPostsByDate(posts);
+
+  return posts;
+};
+
+export const getPostsByTags = async (tag) => {
+  let posts = filePaths(POSTS_PATH).map((filePath) => {
+    const source = fs.readFileSync(path.join(POSTS_PATH, filePath));
+    const {
+      content,
+      data: { frontmatter },
+    } = matter(source);
+
+    const { tags } = frontmatter.tags.slice(',');
+    if (tags.include(tag)) {
+      return {
+        content,
+        data: { frontmatter },
+        filePath,
+        slug: tag,
+      };
+    }
+  });
+
+  posts = sortPostsByDate(posts);
+  console.log({ posts });
 
   return posts;
 };

@@ -24,7 +24,7 @@ const CardBlogPost = ({ post }) => {
   return (
     <li
       key={post.filePath}
-      className="rounded-lg backdrop-blur-lg bg-white dark:bg-black dark:bg-opacity-30 bg-opacity-10 hover:bg-opacity-40 dark:hover:bg-opacity-50 transition border border-gray-800 dark:border-white border-opacity-10 dark:border-opacity-10 last:border-b"
+      className="rounded-lg backdrop-blur-lg bg-white dark:bg-black dark:bg-opacity-30 bg-opacity-10 hover:bg-opacity-40 dark:hover:bg-opacity-50 transition border border-gray-800 dark:border-white border-opacity-10 dark:border-opacity-10 last:border-b mb-12"
     >
       <Link
         as={`/posts/${post.filePath.replace(/\.mdx?$/, '')}`}
@@ -60,15 +60,15 @@ const CardBlogPost = ({ post }) => {
 
 const ListBlogPost = ({ post }) => {
   return (
-    <li key={post.filePath} className="p-3 mt-8">
+    <li key={post.filePath} className="p-3 mt-12 mb-12">
       <div className="overflow-hidden cursor-pointer">
         <div className="flex items-baseline justify-between">
           {post.data.date && (
             <span className="text-xs mb-3 opacity-60">{post.data.date}</span>
           )}
           <Link
-            as={`/posts/${post.filePath.replace(/\.mdx?$/, '')}`}
-            href={`/posts/[slug]`}
+            as={`/tags/${post.data.tags}`}
+            href={`/tags/[slug]`}
             legacyBehavior
           >
             <span>

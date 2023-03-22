@@ -1,7 +1,7 @@
 import Link from 'next/link';
 
 const FeaturedSection = () => (
-  <div className="grid grid-cols-8 gap-4 mt-10 mb-20">
+  <div className="grid grid-cols-8 gap-4 mt-12 mb-12">
     <div className="col-span-full lg:grid-cols-2 lg:col-start-5 lg:col-span-7 flex justify-center">
       <img
         className="rounded-full w-1/2 md:w-72 lg:w-72"

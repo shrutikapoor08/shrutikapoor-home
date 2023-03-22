@@ -3,8 +3,6 @@ import { talkFilePaths, getTalkBySlug } from '../../utils/mdx-utils';
 
 import { MDXRemote } from 'next-mdx-remote';
 import Head from 'next/head';
-import Link from 'next/link';
-import ArrowIcon from '../../components/ArrowIcon';
 import CustomLink from '../../components/CustomLink';
 import Footer from '../../components/Footer';
 import Header from '../../components/Header';
@@ -33,7 +31,7 @@ export default function TalkPage({ source, frontMatter, globalData }) {
       <Header />
       <article className="px-6 md:px-0">
         <header>
-          <h1 className="text-2xl md:text-5xl dark:text-white text-center mb-12">
+          <h1 className="text-2xl md:text-3xl dark:text-white text-center mb-12">
             {frontMatter.conference} - {frontMatter.title}
           </h1>
         </header>
