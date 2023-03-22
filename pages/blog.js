@@ -43,12 +43,14 @@ const CardBlogPost = ({ post }) => {
               </p>
             )}
 
-            {post.data.date && (
-              <p className="uppercase mb-3 font-bold opacity-60">
-                {post.data.date}
-              </p>
-            )}
-            <ArrowIcon className="mt-4" />
+            <div className="flex justify-between items-start mt-5">
+              {post.data.date && (
+                <p className="uppercase mb-3 font-bold opacity-60">
+                  {post.data.date}
+                </p>
+              )}
+              <ArrowIcon />
+            </div>
           </div>
         </div>
       </Link>
@@ -59,16 +61,30 @@ const CardBlogPost = ({ post }) => {
 const ListBlogPost = ({ post }) => {
   return (
     <li key={post.filePath} className="p-3 mt-8">
-      <Link
-        as={`/posts/${post.filePath.replace(/\.mdx?$/, '')}`}
-        href={`/posts/[slug]`}
-        legacyBehavior
-      >
-        <div className="overflow-hidden cursor-pointer">
+      <div className="overflow-hidden cursor-pointer">
+        <div className="flex items-baseline justify-between">
           {post.data.date && (
-            <p className="text-xs mb-3 opacity-60">{post.data.date}</p>
+            <span className="text-xs mb-3 opacity-60">{post.data.date}</span>
           )}
-
+          <Link
+            as={`/posts/${post.filePath.replace(/\.mdx?$/, '')}`}
+            href={`/posts/[slug]`}
+            legacyBehavior
+          >
+            <span>
+              {post.data.tags && (
+                <span className="relative z-10 rounded-full bg-gray-50 py-1.5 px-3 text-xs text-gray-600 hover:bg-gray-100">
+                  {post.data.tags}
+                </span>
+              )}
+            </span>
+          </Link>
+        </div>
+        <Link
+          as={`/posts/${post.filePath.replace(/\.mdx?$/, '')}`}
+          href={`/posts/[slug]`}
+          legacyBehavior
+        >
           <div className="block focus:outline-none focus:ring-4">
             <h2 className="lg:text-base md:text-base font-semibold">
               {post.data.title}
@@ -81,8 +97,8 @@ const ListBlogPost = ({ post }) => {
               )}
             </div>
           </div>
-        </div>
-      </Link>
+        </Link>
+      </div>
     </li>
   );
 };

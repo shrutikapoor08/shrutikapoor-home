@@ -16,7 +16,7 @@ export default function Talks({ talks, globalData }) {
       <div className="max-w-5xl">
         <SEO title={globalData.name} description={globalData.blogTitle} />
         <Header name="Talks and Speaking Engagements" />
-        <main className="w-full mt-auto mb-10 px-5">
+        <main className="w-full mt-12 px-5">
           <ul className="grid grid-cols-1 lg:grid-cols-2 gap-5">
             {talks.map((talk) => (
               <li
@@ -26,7 +26,8 @@ export default function Talks({ talks, globalData }) {
                 <Link
                   as={`/talks/${talk.filePath.replace(/\.mdx?$/, '')}`}
                   href={`/talks/[slug]`}
-                  legacyBehavior>
+                  legacyBehavior
+                >
                   <div className="overflow-hidden rounded-lg cursor-pointer">
                     {talk.data.link && (
                       <iframe
