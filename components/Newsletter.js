@@ -1,7 +1,7 @@
 export default function Newsletter() {
   return (
     <section className="body-font">
-      <div className="container px-5 py-24 mx-auto mt-auto">
+      <div className="container px-5 py-8 mx-auto mt-auto">
         <div className="flex flex-col text-center w-full mb-12">
           <h2 className="sm:text-3xl text-2xl font-medium title-font mb-4">
             Get latest blog articles in your inbox.
