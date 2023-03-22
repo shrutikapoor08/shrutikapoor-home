@@ -49,7 +49,7 @@ const moonIcon = (
 
 const ThemeSwitcher = () => {
   return (
-    <div className="flex mt-6 bg-white justify-center dark:bg-gray-900 rounded-3xl p-1">
+    <div className="flex mt-6 bg-white justify-center dark:bg-gray-900 rounded-3xl p-1 ">
       <button
         type="button"
         aria-label="Use Dark Mode"
@@ -80,7 +80,7 @@ const ThemeSwitcher = () => {
 import Newsletter from './Newsletter';
 export default function Footer({ copyrightText }) {
   return (
-    <footer className=" flex flex-col items-center">
+    <footer className=" flex flex-col items-center border-t border-indigo-500">
       <Newsletter />
       <p className="dark:text-white uppercase mb-3 font-bold opacity-60">
         {copyrightText}
