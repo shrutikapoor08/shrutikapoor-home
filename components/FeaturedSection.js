@@ -12,14 +12,14 @@ const FeaturedSection = () => (
       <h2 className="text-2xl md:text-2xl lg:text-3xl m-auto mt-10">
         Making web development accessible and fun for everyone.
       </h2>
-      <div className="flex flex-col space-y-6">
+      <div className="flex flex-col space-y-6 text-center">
         <Link href="/blog" legacyBehavior>
-          <span className="bg-indigo-500 border-0 py-2 px-8 rounded-full  text-white hover:font-bold ">
+          <span className="bg-indigo-500 border-0 py-4 px-8 rounded-full  text-white hover:font-bold ">
             Read Blogs
           </span>
         </Link>
         <Link href="https://bit.ly/shruti-discord" legacyBehavior>
-          <span className="bg-indigo-500 border-0 py-2 px-8 rounded-full  text-white hover:font-bold ">
+          <span className="bg-indigo-500 border-0 py-4 px-8 rounded-full  text-white hover:font-bold ">
             Join our Discord
           </span>
         </Link>
