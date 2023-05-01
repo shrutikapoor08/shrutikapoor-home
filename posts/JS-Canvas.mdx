@@ -1,0 +1,103 @@
+---
+title: "Build a beautiful fireworks animation using only HTML5 Canvas Element and JavaScript - JSByte"
+description: "In this tutorial, I'll show you how to use JavaScript and the HTML Canvas element to create a firework animation."
+date: April 30, 2023
+tags: JavaScript, HTML, Canvas
+featuredImage: https://images.unsplash.com/photo-1679251772377-ddc5612f5540?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2340&q=80
+---
+
+[Watch Video on YouTube](https://youtu.be/mIzQPNIThhw)
+
+Animations are a great way to create immersive and engaging web experiences that captivate users and keep them coming back for more.. They can be used for anything from games to advertisements, but one particularly fun use case is creating firework animations using HTML Canvas and JavaScript.
+
+In this tutorial, I'll show you how to use JavaScript and the HTML Canvas element to create a firework animation.
+
+First, we'll start by creating a traversing ball on the canvas. [This was covered in part 1 of the tutorial](https://www.youtube.com/watch?v=l2YMRUDRqGA&ab_channel=ShrutiKapoor), but here's a quick recap:
+
+- Create a canvas element in your HTML file
+- Get a reference to the canvas element using JavaScript and get access to it’s 2D context using `canvas.getContext(‘2d’)`
+- Use the canvas context API to draw a circle at a specific position using `.arc` method.
+- Use a `requestAnimationFrame` loop to update the position of the circle to make it look like the circle is moving, thereby traversing the ball. 
+
+Now, let's extend this traversing ball program to build a fireworks animation. Since in a firework, there are multiple particles, we will use what we have so far to create multiple particles using object-oriented programming. We'll create a class called "Particle" that we'll use to draw and update the particles. The class looks like this -
+
+```
+class Particle {
+constructor() {
+// set up particles
+}
+
+draw() {
+// this method draws circles
+}
+
+update() {
+// this method moves circles
+}
+
+}
+```
+
+[Check out the full source code here.](https://codepen.io/shrutikapoor08/pen/vYVOQxj)
+
+We can use a for loop to create a specific number of particles and push each particle to the particle array. Then, we'll use each particle's draw and update method to draw on the canvas and move the particles.
+
+```
+  particlesArray.forEach((particle) => {
+    particle.draw();
+    particle.update();
+  });
+```
+
+To create various effects, we can play around with the speedX and speedY, the coordinates (x, y) - the centre of the circle X and Y.
+
+```
+  this.x += this.speedX;
+  this.y += -1 * this.speedY;
+```
+To add a tail to the firework, we can paint our canvas with a semi-transparent black color. 
+
+```
+  context.fillStyle = "rgba(0, 0, 0, 0.25)";
+  context.fillRect(0, 0, canvas.width, canvas.height);
+```
+
+Once we've got the basic firework animation working, we can easily extend it to create different effects and variations. By experimenting with different values, we can create unique and visually stunning animations.
+
+
+Creating animations with HTML canvas and vanilla JavaScript is a fun and creative way to add some life to your website or app. By following the steps in this tutorial, you can create a firework animation that will impress your users and make your website or app stand out. 
+
+Give it a try and let your creativity run wild! If you play with this, link your code in the comments section. I would love to see what you came up with.
+
+CodePen: https://codepen.io/shrutikapoor08/pen/vYVOQxj
+
+### Links from the web
+
+1. [ChatGPT Prompt Engineering for Developers](https://www.deeplearning.ai/short-courses/chatgpt-prompt-engineering-for-developers/) - a FREE course from Andrew Ng and Isa Fulford to learn how to use a large language model (LLM) to quickly build new and powerful applications.
+
+2. [Copy.ai](https://www.copy.ai/) - AI tool to help  for your copywriting needs. Use it to create blog posts, write newsletters, create twitter posts, brainstorm ideas. Chat GPT but better
+
+3. [Space Elevator](https://neal.fun/space-elevator/) - A fun site with cool scrolling effect that takes you on a ride to the space while teaching different layers of atmosphere.
+
+
+
+### A Personal Story
+
+March and April have been a hard month for me professionally. I have made some changes in my work life, and I am being very intentional in taking good care of myself, and finding the right balance between work and my mental and personal health. Here’s to a stronger May.
+
+I have been enjoying the summer days of April this month. I bought a bubble gun and I have been enjoying feeling like a kid again. 
+
+
+![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/4afik3ladotieepq53zq.png)
+
+
+
+[Follow me on instagram for more](https://www.instagram.com/itsshrutikapoor/)
+
+---
+Twitter: https://twitter.com/shrutikapoor08
+Website: https://shrutikapoor.dev/
+Discord: https://discord.com/invite/umJXpbuCXE
+
+
+
