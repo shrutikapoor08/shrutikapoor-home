@@ -13,9 +13,12 @@ const FeaturedSection = () => (
         Making web development accessible and fun for everyone.
       </h2>
       <div className="flex flex-col space-y-6 text-center">
-        <Link href="/blog" legacyBehavior>
+        <Link
+          href="https://www.youtube.com/channel/UCbB6Gh3UPI9lUUnPGYMz2ew"
+          legacyBehavior
+        >
           <span className="bg-indigo-500 border-0 py-4 px-8 rounded-full  text-white hover:font-bold ">
-            Read Blogs
+            Watch YouTube
           </span>
         </Link>
         <Link href="https://bit.ly/shruti-discord" legacyBehavior>
