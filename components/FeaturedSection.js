@@ -18,7 +18,7 @@ const FeaturedSection = () => (
           legacyBehavior
         >
           <span className="bg-indigo-500 border-0 py-4 px-8 rounded-full  text-white hover:font-bold ">
-            Watch YouTube
+            Subscribe on YouTube
           </span>
         </Link>
         <Link href="https://bit.ly/shruti-discord" legacyBehavior>
