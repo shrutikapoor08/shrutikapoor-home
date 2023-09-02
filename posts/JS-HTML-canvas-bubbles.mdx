@@ -272,7 +272,19 @@ const handleDrawCircle = (event) => {
 canvas.addEventListener('click', handleDrawCircle);
 ```
 
-Remember to update the `animate` function too - 
+Remember to update the `animate` function too -
+```
+const animate = () => {
+	context.clearRect(0, 0, canvas.width, canvas.height);
+
+	particleArray.forEach((particle) => {
+		particle?.move();
+		particle?.draw();
+	});
+
+	requestAnimationFrame(animate);
+};
+``` 
 
 At this point, you will see this particle on your screen-
 
