@@ -1,11 +1,66 @@
 ---
-title: What's new in React 19?
-description: "React 19 is coming soon. Let's look at major features of React 19"
+title: React Actions
+description: "React 19 is coming soon and itnroduces React Actions. Let's understand React 19"
 date: June 14, 2024
 tags: React
 ---
 
-# What's new in React 19?
+## Feature: React Actions
 
-[React 19 RC was just announced](https://react.dev/blog/2024/04/25/react-19). The theme of React 19 introduces
-Let's take a look at the major updates of React 19:
+To understand actions, lets first take a look at how we manage forms today. Today in React 18 and before, we submit forms using `handlesubmit` in `button`-
+
+```js
+// Form submission in React 19
+
+<form>
+  <input type="text" name="name" onChange={handleChange} />
+  {isPending ? <p>{'Loading'}</p> : <p> Hello in React 18 {name}</p>}
+  <button onClick={handleSubmit} disabled={isPending}>
+    Update
+  </button>
+</form>
+```
+
+In this code, we are doing the following things -
+
+1. Adding loading state using a variable `isPending` that we are manually keeping track of
+2. Submitting form using `handleSubmit` event handler attached to the `onClick` event.
+3. Capturing submitted value using `handleChange` and storing it in state variables.
+
+## Actions
+
+With React 19, handling forms becomes easier. React 19 introduces actions which can be used to handle form submissions. Actions are inspired by frameworks such as Remix. With React 19, we can use `startTransition` to manage pending states.
+`startTransition` was introduced in React 18, however in React 19, startTransition can handle `async` functions as well. If you remember `startTransition` from React 18, you will remember that it can be used to mark certain updates as urgent.
+
+```
+const [isPending, startTransition] = useTransition();
+
+
+ const handleSubmit = () => {
+    startTransition(async () => {
+      const error = await updateName(name);
+      if (error) {
+        setError(error);
+        return;
+      }
+      redirect("/path");
+    })
+  };
+```
+
+This async function inside the startTransition is called Action. So in short, actions are asynchronous functions.
+What makes them cool is that actions can be used directly in forms like so -
+
+```jsx
+<form action={actionFn}>...</form>
+```
+
+To create an async function, we can use a new Hook introuced by React - `useActionState`. The function signature looks like this -
+
+```
+  const [state, formAction] = useActionState(submitAction, { name: "" });
+```
+
+# Converting a React 18 form to React 19 form
+
+next blog post
