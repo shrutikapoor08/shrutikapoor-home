@@ -5,7 +5,7 @@ date: June 14, 2024
 tags: React
 ---
 
-In this blog post, we are going to learn the following -
+In this blog post, we are going to learn -
 
 1. New React 19 feature - Actions
 2. New React 19 hooks - useActionState and useFormStatus
@@ -13,9 +13,9 @@ In this blog post, we are going to learn the following -
 
 ## Feature: React Actions
 
-To understand actions, lets first take a look at how we manage forms today. Today in React 18 and before, we submit forms using `handlesubmit` in `button. Here's a simple form that has one input field `name` -
+To understand actions, lets first take a look at how we manage forms today. Today in React 18 and before, we submit forms using `handlesubmit` in button. Here's a simple form that has one input field `name` -
 
-```html
+```jsx
 // Form submission today // React 18 console.info("React 18 form"); const [name,
 setName] = useState(""); const [isPending, setIsPending] = useState(""); const
 handleChange = (event) => { setName(event.target.value); }; const handleSubmit =
@@ -30,7 +30,7 @@ handleChange = (event) => { setName(event.target.value); }; const handleSubmit =
   }
   <button onClick="{handleSubmit}" disabled="{isPending}">Update</button>
 </form>
-); }
+);
 ```
 
 In this code, we are doing the following things -
