@@ -5,20 +5,32 @@ date: June 14, 2024
 tags: React
 ---
 
+In this blog post, we are going to learn the following -
+
+1. New React 19 feature - Actions
+2. New React 19 hooks - useActionState and useFormStatus
+3. Converting a React 18 form to React 19 form
+
 ## Feature: React Actions
 
-To understand actions, lets first take a look at how we manage forms today. Today in React 18 and before, we submit forms using `handlesubmit` in `button`-
+To understand actions, lets first take a look at how we manage forms today. Today in React 18 and before, we submit forms using `handlesubmit` in `button. Here's a simple form that has one input field `name` -
 
-```js
-// Form submission in React 19
-
+```html
+// Form submission today // React 18 console.info("React 18 form"); const [name,
+setName] = useState(""); const [isPending, setIsPending] = useState(""); const
+handleChange = (event) => { setName(event.target.value); }; const handleSubmit =
+(event) => { event.preventDefault(); setIsPending(true); setTimeout(() => {
+//call API setIsPending(false); }, [500]); }; return (
 <form>
-  <input type="text" name="name" onChange={handleChange} />
-  {isPending ? <p>{'Loading'}</p> : <p> Hello in React 18 {name}</p>}
-  <button onClick={handleSubmit} disabled={isPending}>
-    Update
-  </button>
+  <input type="text" name="name" onChange="{handleChange}" />
+  {isPending ?
+  <p>{"Loading"}</p>
+  :
+  <p>Hello in React 18 {name}</p>
+  }
+  <button onClick="{handleSubmit}" disabled="{isPending}">Update</button>
 </form>
+); }
 ```
 
 In this code, we are doing the following things -
@@ -32,35 +44,123 @@ In this code, we are doing the following things -
 With React 19, handling forms becomes easier. React 19 introduces actions which can be used to handle form submissions. Actions are inspired by frameworks such as Remix. With React 19, we can use `startTransition` to manage pending states.
 `startTransition` was introduced in React 18, however in React 19, startTransition can handle `async` functions as well. If you remember `startTransition` from React 18, you will remember that it can be used to mark certain updates as urgent.
 
-```
+```js
 const [isPending, startTransition] = useTransition();
 
-
- const handleSubmit = () => {
-    startTransition(async () => {
-      const error = await updateName(name);
-      if (error) {
-        setError(error);
-        return;
-      }
-      redirect("/path");
-    })
-  };
+const handleSubmit = () => {
+  startTransition(async () => {
+    const error = await updateName(name);
+    if (error) {
+      setError(error);
+      return;
+    }
+    redirect('/path');
+  });
+};
 ```
 
 This async function inside the startTransition is called Action. So in short, actions are asynchronous functions.
 What makes them cool is that actions can be used directly in forms like so -
 
+```html
+<form action="{actionFn}">...</form>
+```
+
+To create an async function, we can use a new Hook introduced in React 19 - `useActionState`. We can call this hook and pass in an action function and an initial state. This hook gives back the updated state and a form action `actionFn` which can be used to wire up a form.
+
+```js
+const [state, actionFn] = useActionState(submitAction, { name: '' });
+```
+
+Now with this wired up with the form, we have -
+
 ```jsx
-<form action={actionFn}>...</form>
+<form action={actionFn}>
+  <input type="text" name="name" />
+
+  <button type="submit" disabled="{pending}">
+    Update
+  </button>
+</form>
 ```
 
-To create an async function, we can use a new Hook introuced by React - `useActionState`. The function signature looks like this -
+To add a loading state, we can use a new hook introduced in React 19 called `useFormStatus`.
 
+```js
+const { pending, data, method, action } = useFormStatus();
 ```
-  const [state, formAction] = useActionState(submitAction, { name: "" });
+
+This hook gives back information on the status of the form `pending`- i.e. whether the form is submitted. It also gives back the `data`, which is a FormData object which has information on what data was submitted to the form. We can use this `pending` state to get information on when to show the loader. However, there is one caveat - this hook can only be used in a child component and not in the form itself. So we will child components `SubmitButton` and `Loader` -
+
+```js
+function Loader() {
+  const { pending } = useFormStatus();
+  return <div>{pending && "Loading..."}</div>;
+}
+
+function SubmitButton() {
+  const { pending } = useFormStatus();
+  return (
+    <button type="submit" disabled={pending}>
+      Update
+    </button>
+  );
+}
+
+....
+
+return(
+<form action={formAction}>
+      <input type="text" name="name" />
+      <Loader />
+      <SubmitButton />
+    </form>
+)
 ```
 
-# Converting a React 18 form to React 19 form
+We can also capture useful informaiton about data that was submitted to the form by getting it out of `state` returned from `useActionState`.
 
-next blog post
+```js
+const [state, formAction] = useActionState(submitAction, { name: '' });
+```
+
+So here's the final form -
+
+```jsx
+function Loader() {
+  const { pending } = useFormStatus();
+  return <div>{pending && 'Loading...'}</div>;
+}
+
+function SubmitButton() {
+  const { pending } = useFormStatus();
+  return (
+    <button type="submit" disabled={pending}>
+      Update
+    </button>
+  );
+}
+
+function Name({ name }) {
+  return <p>Hello in 19 {name}</p>;
+}
+
+function App() {
+  console.info('React 19 form');
+
+  const [state, formAction] = useActionState(submitAction, { name: '' });
+
+  return (
+    <form action={formAction}>
+      <input type="text" name="name" />
+      <Loader />
+      <SubmitButton />
+      <Name name={state?.name} />
+    </form>
+  );
+}
+```
+
+Compare this with React 18 form at the top of this post to check the difference.
+
+In my next blog post, I am going to talk about a new React feature - React Compiler which is used to automatically memoize, removing the need for `useMemo` and `useCallback`! You can get it directly in your inbox by joining the newsletter.
