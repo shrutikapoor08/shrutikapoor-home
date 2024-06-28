@@ -5,44 +5,62 @@ date: June 14, 2024
 tags: React
 ---
 
-In this blog post, we are going to learn -
+React 19 introduced Actions, which are asynchronous functions. Actions are helpful in making form submissions easier. This blog post dives into what actions are and how to use them.
 
-1. New React 19 feature - Actions
-2. New React 19 hooks - useActionState and useFormStatus
-3. Converting a React 18 form to React 19 form
+In this blog post, we are going to learn about:
+
+1. The new React 19 feature - Actions
+1. The new React 19 hooks - useActionState and useFormStatus
+1. Converting a React 18 form to a React 19 form
 
 ## Feature: React Actions
 
-To understand actions, lets first take a look at how we manage forms today. Today in React 18 and before, we submit forms using `handlesubmit` in button. Here's a simple form that has one input field `name` -
+To understand actions, let's first take a look at how we manage forms today. In React 18 and earlier, we submit forms using the `handleSubmit` function in a button. Here's a simple form that has one input field `name`:
 
 ```jsx
-// Form submission today // React 18 console.info("React 18 form"); const [name,
-setName] = useState(""); const [isPending, setIsPending] = useState(""); const
-handleChange = (event) => { setName(event.target.value); }; const handleSubmit =
-(event) => { event.preventDefault(); setIsPending(true); setTimeout(() => {
-//call API setIsPending(false); }, [500]); }; return (
-<form>
-  <input type="text" name="name" onChange="{handleChange}" />
-  {isPending ?
-  <p>{"Loading"}</p>
-  :
-  <p>Hello in React 18 {name}</p>
-  }
-  <button onClick="{handleSubmit}" disabled="{isPending}">Update</button>
-</form>
+// Form submission in React 18
+console.info('React 18 form');
+
+const [name, setName] = useState('');
+const [isPending, setIsPending] = useState(false);
+
+const handleChange = (event) => {
+  setName(event.target.value);
+};
+
+const handleSubmit = (event) => {
+  event.preventDefault();
+  setIsPending(true);
+  setTimeout(() => {
+    // call API
+    setIsPending(false);
+  }, 500);
+};
+
+return (
+  <form>
+    <input type="text" name="name" onChange={handleChange} />
+    {isPending ? <p>Loading...</p> : <p>Hello in React 18, {name}</p>}
+    <button onClick={handleSubmit} disabled={isPending}>
+      Update
+    </button>
+  </form>
 );
 ```
 
-In this code, we are doing the following things -
+In this code, we are doing the following:
 
-1. Adding loading state using a variable `isPending` that we are manually keeping track of
-2. Submitting form using `handleSubmit` event handler attached to the `onClick` event.
-3. Capturing submitted value using `handleChange` and storing it in state variables.
+1. Adding a Loading State: We use a variable isPending to manually keep track of the loading state.
+1. Form Submission: The form is submitted using the handleSubmit event handler attached to the onClick event of the button.
+1. Capturing Submitted Value: The handleChange function captures the submitted value and stores it in state variables.
 
 ## Actions
 
-With React 19, handling forms becomes easier. React 19 introduces actions which can be used to handle form submissions. Actions are inspired by frameworks such as Remix. With React 19, we can use `startTransition` to manage pending states.
-`startTransition` was introduced in React 18, however in React 19, startTransition can handle `async` functions as well. If you remember `startTransition` from React 18, you will remember that it can be used to mark certain updates as urgent.
+With React 19, handling forms becomes easier with Actions, inspired by frameworks such as Remix. One key feature is the enhanced use of startTransition to manage pending states.
+
+startTransition was introduced in React 18, allowing developers to mark certain updates as less urgent. In React 19, startTransition can now handle async functions, making it even more powerful for managing asynchronous tasks and improving the user experience during form submissions.
+
+If you remember startTransition from React 18, you'll know it helps to mark updates that aren't urgent, allowing more responsive updates for the user.
 
 ```js
 const [isPending, startTransition] = useTransition();
