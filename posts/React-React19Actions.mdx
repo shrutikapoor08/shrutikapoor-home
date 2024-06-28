@@ -60,8 +60,6 @@ With React 19, handling forms becomes easier with Actions, inspired by framework
 
 startTransition was introduced in React 18, allowing developers to mark certain updates as less urgent. In React 19, startTransition can now handle async functions, making it even more powerful for managing asynchronous tasks and improving the user experience during form submissions.
 
-If you remember startTransition from React 18, you'll know it helps to mark updates that aren't urgent, allowing more responsive updates for the user.
-
 ```js
 const [isPending, startTransition] = useTransition();
 
@@ -77,14 +75,17 @@ const handleSubmit = () => {
 };
 ```
 
-This async function inside the startTransition is called Action. So in short, actions are asynchronous functions.
-What makes them cool is that actions can be used directly in forms like so -
+This async function inside `startTransition` is called Action. What makes them cool is that actions can be used directly to submit forms like so -
 
 ```html
 <form action="{actionFn}">...</form>
 ```
 
-To create an async function, we can use a new Hook introduced in React 19 - `useActionState`. We can call this hook and pass in an action function and an initial state. This hook gives back the updated state and a form action `actionFn` which can be used to wire up a form.
+This format may look familiar if you are experienced with PHP.
+
+## How to create an action?
+
+To create an async function, we can use a new hook introduced in React 19 - `useActionState`. We call this hook and pass in an action function and an initial state. This hook returns the updated state and a form action `actionFn`, which can be used to wire up a form.
 
 ```js
 const [state, actionFn] = useActionState(submitAction, { name: '' });
@@ -108,7 +109,7 @@ To add a loading state, we can use a new hook introduced in React 19 called `use
 const { pending, data, method, action } = useFormStatus();
 ```
 
-This hook gives back information on the status of the form `pending`- i.e. whether the form is submitted. It also gives back the `data`, which is a FormData object which has information on what data was submitted to the form. We can use this `pending` state to get information on when to show the loader. However, there is one caveat - this hook can only be used in a child component and not in the form itself. So we will child components `SubmitButton` and `Loader` -
+This hook provides information on the status of the form. The `pending` state indicates whether the form is being submitted, and `data` is a `FormData` object containing the submitted data. We use this pending state to show a loader. However, there is one caveat - this hook can only be used in a child component, not in the form itself. So, we have to create child components SubmitButton and Loader to retrieve `pending` state:
 
 ```js
 function Loader() {
@@ -136,7 +137,7 @@ return(
 )
 ```
 
-We can also capture useful informaiton about data that was submitted to the form by getting it out of `state` returned from `useActionState`.
+We can also capture useful information about the data submitted to the form by retrieving it from the state returned from `useActionState`.
 
 ```js
 const [state, formAction] = useActionState(submitAction, { name: '' });
@@ -181,4 +182,8 @@ function App() {
 
 Compare this with React 18 form at the top of this post to check the difference.
 
-In my next blog post, I am going to talk about a new React feature - React Compiler which is used to automatically memoize, removing the need for `useMemo` and `useCallback`! You can get it directly in your inbox by joining the newsletter.
+# Conclusion
+
+By utilizing actions along with hooks like `useActionState` and `useFormStatus`, we can easily manage form states, capture submitted data, and provide responsive feedback to users during form submissions to show pending states. I am excited for this improved experience of handling forms in React 19, and I look forward to removing unnecessary `handleSubmits`, `useState`s and `pending` state.
+
+In my next blog post, I will discuss an exciting new React feature - the React Compiler. This tool automatically memoizes, eliminating the need for useMemo and useCallback. Stay updated and get it directly in your inbox by joining my newsletter.
