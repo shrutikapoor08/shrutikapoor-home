@@ -80,7 +80,7 @@ const ThemeSwitcher = () => {
 import Newsletter from './Newsletter';
 export default function Footer({ copyrightText }) {
   return (
-    <footer className=" flex flex-col items-center border-t border-indigo-500">
+    <footer className="flex flex-col items-center border-t border-indigo-500">
       <Newsletter />
       <p className="dark:text-white uppercase mb-3 font-bold opacity-60">
         {copyrightText}

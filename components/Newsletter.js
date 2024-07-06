@@ -1,6 +1,6 @@
 export default function Newsletter() {
   return (
-    <section className="body-font">
+    <section className="body-font bg-white dark:bg-slate-900/[.6] mb-10">
       <div className="container px-5 py-8 mx-auto mt-12 mb-24">
         <div className="flex flex-col text-center w-full mb-12">
           <h2 className="sm:text-3xl text-2xl font-medium title-font mb-4">
