@@ -11,11 +11,8 @@ export default function Newsletter() {
         <div className="px-8 space-y-4">
           <iframe
             src="https://shrutikapoor.substack.com/embed"
-            width="480"
-            height="320"
-            style="border:1px solid #EEE; background:white;"
-            frameborder="0"
-            scrolling="no"
+            width="800"
+            height="300"
           ></iframe>
 
           <div className="flex flex-col sm:flex-row gap-4 items-center justify-center">

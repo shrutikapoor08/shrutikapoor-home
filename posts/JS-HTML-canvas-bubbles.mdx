@@ -6,7 +6,7 @@ featuredImage: https://res.cloudinary.com/practicaldev/image/fetch/s--oFVRp25C--
 tags: JavaScript, HTML, Canvas
 ---
 
-Hello everyone! Welcome to this tutorial where we're going to dive into the world of creating fun bubbles in code by using HTML canvas and JavaScript. The best part? We'll achieve all of this using just a touch of HTML and all JavaScript, no CSS.
+In this tutorial, we're going to dive into the world of creating fun bubbles in code by using HTML canvas and JavaScript. The best part? We'll achieve all of this using just a touch of HTML and all JavaScript, no CSS!
 
 ### Unveiling the Concepts
 
@@ -19,8 +19,7 @@ Today, we're going to master the following concepts:
 
 You can follow along with me, or use [the final codepen](https://codepen.io/shrutikapoor08/pen/wvQXMVO) if you want to take a look at the source code
 
-If you prefer to learn in a video format, follow along this video 
-
+If you prefer to learn in a video format, follow along this video
 
 <iframe
   width="560"
@@ -75,9 +74,8 @@ canvas.addEventListener('click', handleDrawCircle);
 Since we need to know where we clicked on our canvas, we are going to keep track of it in our `handleDrawCircle` function and use the event’s coordinates -
 
 ```js
-
 //We are adding x and y here because we will need it later.
-let x, y
+let x, y;
 const handleDrawCircle = (event) => {
   x = event.pageX;
   y = event.pageY;
@@ -101,9 +99,7 @@ const drawCircle = (x, y) => {
 };
 ```
 
-
 ![Drawing circles](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/1zrbq3gcpff40nbvzbt8.png)
-
 
 ### Moving circles using requestAnimationFrame method
 
@@ -145,26 +141,23 @@ const animate = () => {
   context.clearRect(0, 0, canvas.width, canvas.height);
 
   move();
-	drawCircle(x,y);
+  drawCircle(x, y);
 
   requestAnimationFrame(animate);
 };
 
-//Don't forget to call animate at the bottom 
+//Don't forget to call animate at the bottom
 animate();
 ```
 
-
 ![Circle animating](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/z01uy7e82sqia06svu5t.gif)
-
-
 
 ### Creating Particles: Introducing the Particle Class
 
 Now that we have created one circle, it’s time to create multiple circles!
 
 But before we create multiple circles, let's prepare our code.
- In order to avoid repeating our code, we are going to use classes and introduce Particle class. Particles are the building blocks of our dynamic artwork and animation. Each bubble is a particle with its own position, size, movement, and color attributes. Let's define a **`Particle`** class to encapsulate these properties:
+In order to avoid repeating our code, we are going to use classes and introduce Particle class. Particles are the building blocks of our dynamic artwork and animation. Each bubble is a particle with its own position, size, movement, and color attributes. Let's define a **`Particle`** class to encapsulate these properties:
 
 ```js
 class Particle {
@@ -242,8 +235,7 @@ move() {
 }
 ```
 
-Now, we need to make sure that in our event handler, we are calling the class Particle. 
-
+Now, we need to make sure that in our event handler, we are calling the class Particle.
 
 ```js
 const handleDrawCircle = (event) => {
@@ -273,6 +265,7 @@ canvas.addEventListener('click', handleDrawCircle);
 ```
 
 Remember to update the `animate` function too -
+
 ```
 const animate = () => {
 	context.clearRect(0, 0, canvas.width, canvas.height);
@@ -284,16 +277,15 @@ const animate = () => {
 
 	requestAnimationFrame(animate);
 };
-``` 
+```
 
 At this point, you will see this particle on your screen-
 
 ![Multiple circles moving](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/92rs6a5i1xn4v2gzdv8o.gif)
 
+Awesome! Now, to the fun part! Let's creates lots of circles and style them to make them look like bubbles.
 
-Awesome! Now, to the fun part! Let's creates lots of circles and style them to make them look like bubbles. 
-
-To create lots of bubbles, we are going to create particles using `for` loop and add them to the `particleArray` we had created here. 
+To create lots of bubbles, we are going to create particles using `for` loop and add them to the `particleArray` we had created here.
 
 ```js
 const handleDrawCircle = (event) => {
@@ -308,7 +300,6 @@ const handleDrawCircle = (event) => {
 
 canvas.addEventListener('click', handleDrawCircle);
 ```
-
 
 In the animate function, we'll continuously update the canvas by clearing it and redrawing the particles in their new positions. This will give an illusion of the circle moving.
 
@@ -329,9 +320,6 @@ animate();
 
 ![Multiple circles animating](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/ya5u8w8qetqkcy2nbowe.gif)
 
-
-
-
 Now that we have bubbles moving, it’s time to add color to them to make them look like bubbles!
 
 We will do this by adding a gradient fill to bubbles. This can be done using the `context.createRadialGradient` method.
@@ -343,7 +331,7 @@ const gradient = context.createRadialGradient(
   1,
   this.x + 0.5,
   this.y + 0.5,
-  this.radius
+  this.radius,
 );
 
 gradient.addColorStop(0.3, 'rgba(255, 255, 255, 0.3)');
@@ -354,10 +342,7 @@ context.fillStyle = gradient;
 
 ![Bubbles](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/l80yde62l9mw3ceh1f1i.gif)
 
-
-[Here’s the final codepen](https://codepen.io/shrutikapoor08/pen/wvQXMVO
-) if you want to take a look at the source code
-
+[Here’s the final codepen](https://codepen.io/shrutikapoor08/pen/wvQXMVO) if you want to take a look at the source code
 
 ### Wrap Up
 
@@ -367,12 +352,13 @@ Feel free to experiment with colors, speeds, and sizes to make your animations t
 
 I hope you had as much fun following this tutorial as I did creating it. Now, it's your turn to experiment. I would love to see if you tried this out and what you created. Share with me your code link and I would love to check it out.
 
---- 
-And now a #DevJoke - 
+---
+
+And now a #DevJoke -
 
 Question - Who won the debate for the best name for loop variable?
 
-Answer - i won. 
+Answer - i won.
 
 ---
 
