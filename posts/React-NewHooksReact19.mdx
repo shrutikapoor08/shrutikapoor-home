@@ -1,0 +1,102 @@
+---
+title: React 19 Hooks A Deep Dive for Developers
+description: 'React 19 introduces exciting new hooks—useFormStatus, useActionState, and useOptimistic. Let’s dive into what they bring to the table and how you can use them effectively.'
+date: November 1, 2024
+tags: React
+featuredImage: https://res.cloudinary.com/dq2tmsiiw/image/upload/fl_preserve_transparency/v1738998692/maxresdefault_1_agfvbk.jpg?_s=public-apps
+---
+
+React 19 introduces exciting new hooks—useFormStatus, useActionState, and useOptimistic. Let’s dive into what they bring to the table and how you can use them effectively.
+
+1. **useFormStatus**:
+
+Forms are complex, but this hook simplifies reading data about the form. It tracks form submission states through the pending flag which you can use it to add a pending state. This is also a handy hook because it provides the data object containing the submitted fields.
+
+```jsx
+const Loader = () => {
+  const { pending, data } = useFormStatus();
+
+  return <button disabled={pending}>Submit</button>;
+};
+```
+
+**Important Note:**
+useFormStatus must be used in a child component of the form. For example:
+
+```jsx
+function Loader() {
+  const { pending } = useFormStatus();
+  return <div>{pending && 'Loading...'}</div>;
+}
+
+<form action={formAction}>
+  <Loader />
+</form>;
+```
+
+2. **useActionState**:
+
+Need to manage state changes during form submissions? Use this hook! How this is different from the previous hook is because in addition to the pending flag, it gives back a `state` variable, which represents how `initialState` has changed after the `action` has executed.
+
+```jsx
+const [state, formAction, isPending] = useActionState(action, initialState);
+```
+
+It gives back the formAction which can be used to directly hook into a form in order to submit the form. Such as -
+
+```jsx
+const [state, formAction, isPending] = useActionState(action, initialState);
+```
+
+What makes this hook cool is that you can also use this to create a server action! Here’s a server action using useActionState.
+
+```jsx
+'use server';
+
+export const submitFormAction = async (previousState, formData) => {
+  const name = formData.get('inputName');
+
+  await wait(500); // simulate calling an api
+
+  return { ...previousState, name };
+};
+```
+
+The only addition this action needed was a “use server” directive a the top, which makes it a server action.
+
+Want to learn Actions in detail? [Check it out here.](https://www.youtube.com/watch?v=ExZUdkfu-KE&ab_channel=ShrutiKapoor), or watch the video
+
+<iframe
+  width="560"
+  height="315"
+  src="https://www.youtube.com/embed/ExZUdkfu-KE?si=81aRW0gTCJwr3uFW"
+  title="YouTube video player"
+  frameborder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+  referrerpolicy="strict-origin-when-cross-origin"
+  allowfullscreen
+></iframe>
+
+2. **useActionState**:
+
+Optimistic UI updates make your app feel faster by showing changes immediately, even before the server confirms them. How this is helpful is that assume a user writes an input such as their email address, and you need to validate this information on the server, you can optimistically show a checkmark ✅ , before waiting for the response from the server. It gives the impression of a performant UI. Another example is hitting a like button.
+
+```jsx
+const [optimisiticLikes, updateLikes] = useOptimistic(state, updateLikesFn);
+```
+
+Use this hook for actions like:
+
+- Liking a post
+
+- Validating form inputs
+
+- Updating a shopping cart
+
+### Conclusion
+
+Stay tuned for more React 19 updates
+
+```
+
+```
