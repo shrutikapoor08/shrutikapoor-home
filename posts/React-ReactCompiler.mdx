@@ -1,0 +1,47 @@
+---
+title: 5 FAQs about React Compiler
+description: 'A short and quick look at some of the commonly asked questions about React Compiler'
+date: November 21, 2024
+tags: React
+featuredImage: https://res.cloudinary.com/dq2tmsiiw/image/upload/fl_preserve_transparency/v1738998691/7c146125-f1e9-455b-9e77-d112465e485d_1280x720_va50mw.jpg?_s=public-apps
+---
+
+### Question 1: Do I need to remove my useMemo and useCallback now?
+
+No. It is safe to leave them in. Compiler does its own low-level memoization, and [understands and checks manual memoization](https://github.com/reactwg/react-compiler/discussions/16) for correctness.
+
+### Question 2: Is there a difference between the memoization of useMemo, useCallback and React Compiler?
+
+Yes. Compiler uses memoization techniques different from the memoizations of `useMemo` and `useCallback`. Specifically, the Compiler uses an internal React hook `_c` formerly called `useMemoCache`.
+
+### Question 3: Does the Compiler need React 19?
+
+No. The compiler does not ship with React 19 . You can use it with other React versions by installing react-compiler-runtime.
+
+### Question 4: Are there ways to still manually optimize some files?
+
+Yes. Use “use no memo“ in files you want the Compiler to skip.
+
+### Question 5: How do I know if the code is compiled by the compiler?
+
+1. If you are using React Devtools (v5.0+), you will notice a “Memo ✨” badge next to components that have been optimized by the compiler.
+
+2. If you paste your code in the [React Compiler Playground](https://playground.react.dev/) , you will notice the functions get transformed by the `_c` hook, which denotes that compiler has optimized the code. Here’s an example of what that looks like -
+
+```jsx
+const $ = _c(9);
+const { friends } = t0;
+const onlineCount = useFriendOnlineCount();
+if (friends.length === 0) {
+  let t1;
+  if ($[0] === Symbol.for('react.memo_cache_sentinel')) {
+    t1 = <NoFriends />;
+    $[0] = t1;
+  } else {
+    t1 = $[0];
+  }
+  return t1;
+}
+```
+
+Got more questions about the React Compiler? Let me know in the comments, and I’ll cover them in the next newsletter!
