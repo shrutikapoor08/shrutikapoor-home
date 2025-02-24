@@ -106,31 +106,29 @@ const ListBlogPost = ({ post }) => {
 export default function Blog({ posts, globalData }) {
   return (
     <LayoutFullWidth>
-      <div className="max-w-5xl">
-        <SEO title={globalData.name} description={globalData.name} />
-        <Header name="Blog" />
-        <main className="w-full px-5 mt-12">
-          <ul className="grid md:grid-cols-1 lg:grid-cols-3 gap-5">
-            {getLatestBlogPosts(posts).map((post) => (
-              <CardBlogPost post={post} key={post.date} />
-            ))}
-          </ul>
-          <ul className="grid md:grid-cols-1 lg:grid-cols-3 my-5">
-            {getOlderBlogPosts(posts).map((post) => (
-              <ListBlogPost post={post} key={post.date} />
-            ))}
-          </ul>
-        </main>
-        <Footer copyrightText={globalData.footerText} />
-        <GradientBackground
-          variant="large"
-          className="fixed top-20 opacity-40 dark:opacity-60"
-        />
-        <GradientBackground
-          variant="small"
-          className="absolute bottom-0 opacity-20 dark:opacity-10"
-        />
-      </div>
+      <SEO title={globalData.name} description={globalData.name} />
+      <Header name="Blog" />
+      <main className="mx-5">
+        <ul className="grid md:grid-cols-1 lg:grid-cols-3 gap-5">
+          {getLatestBlogPosts(posts).map((post) => (
+            <CardBlogPost post={post} key={post.date} />
+          ))}
+        </ul>
+        <ul className="grid md:grid-cols-1 lg:grid-cols-3 my-5">
+          {getOlderBlogPosts(posts).map((post) => (
+            <ListBlogPost post={post} key={post.date} />
+          ))}
+        </ul>
+      </main>
+      <Footer copyrightText={globalData.footerText} />
+      <GradientBackground
+        variant="large"
+        className="fixed top-20 opacity-40 dark:opacity-60"
+      />
+      <GradientBackground
+        variant="small"
+        className="absolute bottom-0 opacity-20 dark:opacity-10"
+      />
     </LayoutFullWidth>
   );
 }
