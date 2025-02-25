@@ -14,7 +14,7 @@ export default function Talks({ talks, globalData }) {
   return (
     <LayoutFullWidth>
       <SEO title={globalData.name} description={globalData.blogTitle} />
-      <Header name="Talks and Speaking Engagements" />
+      <Header name="Talks" />
       <main className="mx-5">
         <ul className="grid grid-cols-1 lg:grid-cols-2 gap-5">
           {talks.map((talk) => (
