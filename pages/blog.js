@@ -33,7 +33,7 @@ const CardBlogPost = ({ post }) => {
         legacyBehavior
       >
         <div className="overflow-hidden rounded-lg cursor-pointer">
-          {post.data.featuredImage && <Image src={post.data.featuredImage} />}
+          {post.data.featuredImage && <img src={post.data.featuredImage} />}
           <div className="py-6 px-6 block focus:outline-none focus:ring-4">
             <h2 className="lg:text-xl md:text-xl font-semibold">
               {post.data.title}
