@@ -28,7 +28,7 @@ const FeaturedBlogs = ({ posts }) => (
             >
               <div className="overflow-hidden rounded-lg cursor-pointer">
                 {post.data.featuredImage && (
-                  <Image src={post.data.featuredImage} />
+                  <Image alt="featured image" src={post.data.featuredImage} />
                 )}
                 <div className="py-6 px-6 block focus:outline-none focus:ring-4">
                   <h2 className="lg:text-xl md:text-2xl font-semibold">

@@ -12,7 +12,7 @@ import SEO from '../components/SEO';
 
 export default function Talks({ talks, globalData }) {
   return (
-    <LayoutFullWidth>
+    (<LayoutFullWidth>
       <SEO title={globalData.name} description={globalData.blogTitle} />
       <Header name="Talks" />
       <main className="mx-5">
@@ -59,7 +59,7 @@ export default function Talks({ talks, globalData }) {
         variant="small"
         className="absolute bottom-0 opacity-20 dark:opacity-10"
       />
-    </LayoutFullWidth>
+    </LayoutFullWidth>)
   );
 }
 
