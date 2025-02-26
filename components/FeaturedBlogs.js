@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import ArrowIcon from './ArrowIcon';
 
 const FeaturedBlogs = ({ posts }) => (
@@ -6,7 +7,7 @@ const FeaturedBlogs = ({ posts }) => (
     <div className="flex flex-row justify-between mb-10">
       <h2 className="text-xl lg:text-3xl w-auto"> Latest Blog Posts </h2>
 
-      <Link href="/blog" legacyBehavior>
+      <Link href="/blog" legacyBehavior passHref>
         <span className="border-0 focus:outline-none hover:text-blue-600 lg:hover:font-bold rounded text-base md:text-md cursor-pointer hover:underline">
           Read all articles
         </span>
@@ -27,7 +28,7 @@ const FeaturedBlogs = ({ posts }) => (
             >
               <div className="overflow-hidden rounded-lg cursor-pointer">
                 {post.data.featuredImage && (
-                  <img src={post.data.featuredImage} />
+                  <Image src={post.data.featuredImage} />
                 )}
                 <div className="py-6 px-6 block focus:outline-none focus:ring-4">
                   <h2 className="lg:text-xl md:text-2xl font-semibold">

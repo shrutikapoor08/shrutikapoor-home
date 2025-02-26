@@ -1,5 +1,5 @@
 ---
-title: Develop Animated Bubbles with HTML5 Canvas and JavaScript. A Step-by-Step Tutorial
+title: 'Develop Animated Bubbles with HTML5 Canvas and JavaScript.'
 description: 'Discover how to make enjoyable Canvas animations using just JavaScript, without CSS.'
 date: August 30, 2023
 featuredImage: https://res.cloudinary.com/practicaldev/image/fetch/s--oFVRp25C--/c_imagga_scale,f_auto,fl_progressive,h_420,q_auto,w_1000/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/cknsnhz1jz76a0murlv2.jpg
@@ -19,7 +19,7 @@ Today, we're going to master the following concepts:
 
 You can follow along with me, or use [the final codepen](https://codepen.io/shrutikapoor08/pen/wvQXMVO) if you want to take a look at the source code
 
-If you prefer to learn in a video format, follow along this video
+If you prefer to learn in a video format, check out [my YouTube tutorial](https://www.youtube.com/embed/IjPgXP3gDyI?si=1poXtX0Yi0WUB7Or).
 
 <iframe
   width="560"
@@ -87,7 +87,7 @@ const handleDrawCircle = (event) => {
 
 ### Drawing circles using arc method
 
-To create circles, we are going to utilize the [`arc` method available on canvas’s context.](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/arc) `Arc` method accepts `x` and `y` - the center of the circle, a radius and a start angle and end angle which for us will be `0` and `2* Math.PI` since we are creating a full circle.
+To create circles, we are going to utilize the [arc method available on canvas’s context.](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/arc) `Arc` method accepts `x` and `y` - the center of the circle, a radius and a start angle and end angle which for us will be `0` and `2* Math.PI` since we are creating a full circle.
 
 ```js
 const drawCircle = (x, y) => {
