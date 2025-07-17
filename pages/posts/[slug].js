@@ -51,6 +51,74 @@ export default function PostPage({
         <main>
           <article className="mx-auto prose dark:prose-dark article-text">
             <MDXRemote {...source} components={components} />
+
+            {/* Connect with me line for the end of blogs */}
+            {/* <div>
+              <div className="flex gap-2">
+                Connect with me on:
+                <a
+                  href="https://www.youtube.com/@shrutikapoor08"
+                  target="_blank"
+                >
+                  YouTube
+                </a>
+                <a href="https://bit.ly/shruti-discord" target="_blank">
+                  Discord
+                </a>
+                <a href="https://x.com/@shrutikapoor08" target="_blank">
+                  Twitter/X
+                </a>
+                <a
+                  href="https://www.instagram.com/itsshrutikapoor/"
+                  target="_blank"
+                >
+                  Instagram
+                </a>
+              </div>
+              <div className="flex gap-2">
+                <span>Also, subscribe to my newsletter:</span>
+                <a href="https://bit.ly/shruti-newsletter" target="_blank">
+                  bit.ly/shruti-newsletter
+                </a>
+              </div>
+            </div> */}
+
+            <div>
+              <hr />
+              <h3>Connect with Me:</h3>
+              <ul>
+                <li>
+                  <span>YouTube: </span>
+                  <a
+                    href="https://www.youtube.com/@shrutikapoor08"
+                    target="_blank"
+                  >
+                    https://www.youtube.com/@shrutikapoor08
+                  </a>
+                </li>
+                <li>
+                  <span>Discord: </span>
+                  <a href="https://bit.ly/shruti-discord" target="_blank">
+                    bit.ly/shruti-discord
+                  </a>
+                </li>
+                <li>
+                  <span>Twitter/X: </span>
+                  <a href="https://x.com/shrutikapoor08" target="_blank">
+                    @shrutikapoor08
+                  </a>
+                </li>
+                <li>
+                  <span>Instagram: </span>
+                  <a
+                    href="https://www.instagram.com/itsshrutikapoor/"
+                    target="_blank"
+                  >
+                    https://www.instagram.com/itsshrutikapoor/
+                  </a>
+                </li>
+              </ul>
+            </div>
           </article>
         </main>
         <div className="grid md:grid-cols-2 lg:-mx-24 mt-12">
