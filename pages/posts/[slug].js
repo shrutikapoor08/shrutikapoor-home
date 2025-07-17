@@ -92,19 +92,28 @@ export default function PostPage({
                   <a
                     href="https://www.youtube.com/@shrutikapoor08"
                     target="_blank"
+                    rel="noreferrer"
                   >
                     https://www.youtube.com/@shrutikapoor08
                   </a>
                 </li>
                 <li>
                   <span>Discord: </span>
-                  <a href="https://bit.ly/shruti-discord" target="_blank">
+                  <a
+                    href="https://bit.ly/shruti-discord"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
                     bit.ly/shruti-discord
                   </a>
                 </li>
                 <li>
                   <span>Twitter/X: </span>
-                  <a href="https://x.com/shrutikapoor08" target="_blank">
+                  <a
+                    href="https://x.com/shrutikapoor08"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
                     @shrutikapoor08
                   </a>
                 </li>
@@ -113,6 +122,7 @@ export default function PostPage({
                   <a
                     href="https://www.instagram.com/itsshrutikapoor/"
                     target="_blank"
+                    rel="noreferrer"
                   >
                     https://www.instagram.com/itsshrutikapoor/
                   </a>
