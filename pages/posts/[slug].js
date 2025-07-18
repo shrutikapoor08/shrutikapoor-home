@@ -63,7 +63,7 @@ export default function PostPage({
                     target="_blank"
                     rel="noreferrer"
                   >
-                    https://www.youtube.com/@shrutikapoor08
+                    youtube.com/@shrutikapoor08
                   </a>
                 </li>
                 <li>
@@ -83,7 +83,7 @@ export default function PostPage({
                     target="_blank"
                     rel="noreferrer"
                   >
-                    @shrutikapoor08
+                    x.com/@shrutikapoor08
                   </a>
                 </li>
                 <li>
@@ -93,7 +93,7 @@ export default function PostPage({
                     target="_blank"
                     rel="noreferrer"
                   >
-                    https://www.instagram.com/itsshrutikapoor/
+                    instagram.com/techcreatorshrutikapoor
                   </a>
                 </li>
               </ul>
