@@ -52,37 +52,6 @@ export default function PostPage({
           <article className="mx-auto prose dark:prose-dark article-text">
             <MDXRemote {...source} components={components} />
 
-            {/* Connect with me line for the end of blogs */}
-            {/* <div>
-              <div className="flex gap-2">
-                Connect with me on:
-                <a
-                  href="https://www.youtube.com/@shrutikapoor08"
-                  target="_blank"
-                >
-                  YouTube
-                </a>
-                <a href="https://bit.ly/shruti-discord" target="_blank">
-                  Discord
-                </a>
-                <a href="https://x.com/@shrutikapoor08" target="_blank">
-                  Twitter/X
-                </a>
-                <a
-                  href="https://www.instagram.com/itsshrutikapoor/"
-                  target="_blank"
-                >
-                  Instagram
-                </a>
-              </div>
-              <div className="flex gap-2">
-                <span>Also, subscribe to my newsletter:</span>
-                <a href="https://bit.ly/shruti-newsletter" target="_blank">
-                  bit.ly/shruti-newsletter
-                </a>
-              </div>
-            </div> */}
-
             <div>
               <hr />
               <h3>Connect with Me:</h3>
@@ -120,7 +89,7 @@ export default function PostPage({
                 <li>
                   <span>Instagram: </span>
                   <a
-                    href="https://www.instagram.com/itsshrutikapoor/"
+                    href="https://www.instagram.com/techcreatorshrutikapoor/"
                     target="_blank"
                     rel="noreferrer"
                   >
