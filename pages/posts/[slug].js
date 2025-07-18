@@ -51,6 +51,53 @@ export default function PostPage({
         <main>
           <article className="mx-auto prose dark:prose-dark article-text">
             <MDXRemote {...source} components={components} />
+
+            <div>
+              <hr />
+              <h3>Connect with Me:</h3>
+              <ul>
+                <li>
+                  <span>YouTube: </span>
+                  <a
+                    href="https://www.youtube.com/@shrutikapoor08"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    youtube.com/@shrutikapoor08
+                  </a>
+                </li>
+                <li>
+                  <span>Discord: </span>
+                  <a
+                    href="https://bit.ly/shruti-discord"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    bit.ly/shruti-discord
+                  </a>
+                </li>
+                <li>
+                  <span>Twitter/X: </span>
+                  <a
+                    href="https://x.com/shrutikapoor08"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    x.com/@shrutikapoor08
+                  </a>
+                </li>
+                <li>
+                  <span>Instagram: </span>
+                  <a
+                    href="https://www.instagram.com/techcreatorshrutikapoor/"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    instagram.com/techcreatorshrutikapoor
+                  </a>
+                </li>
+              </ul>
+            </div>
           </article>
         </main>
         <div className="grid md:grid-cols-2 lg:-mx-24 mt-12">
