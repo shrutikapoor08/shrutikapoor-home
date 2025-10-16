@@ -1,0 +1,414 @@
+---
+title: '16 Common Mistakes When Using useEffect'
+description: "How to avoid common mistakes when using React's useEffect hook. Learn how to use the useEffect hook correctly and avoid common pitfalls."
+date: October 15, 2025
+featuredImage: https://i.ytimg.com/vi_webp/yGOPO2V6MHI/maxresdefault.webp
+tags: React, Technology
+---
+
+<iframe
+  width="720"
+  height="360"
+  src="https://www.youtube.com/embed/yGOPO2V6MHI"
+  title="YouTube video player"
+  frameborder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+  referrerpolicy="strict-origin-when-cross-origin"
+  allowfullscreen
+></iframe>
+
+The React community seems divided on the useEffect hook. Some developers preach, "Stop using useEffect," claiming it's a bad hook. But the truth is, "They are wrong. useEffect is not a bad hook. It's actually a very powerful hook."
+
+Let's break down the confusion, debunk common misconceptions, and look at 16 mistakes that, once corrected, will significantly improve your React code.
+
+---
+
+## Unlearning the Old Patterns
+
+One of the biggest sources of confusion stems from comparing React Hooks to the class component lifecycle methods.
+
+Many developers mistakenly believe that **use Effect = componentDidMount/Update,** but this is a false equivalency. The timing is fundamentally different.
+
+The key distinction is that **`useEffect` runs after the browser has painted the screen.**
+
+If you treat it like `componentDidMount` or `componentDidUpdate`, **"your effects may be running too late."** You need to **"unlearn that thinking"** if you're transitioning from class components.
+
+---
+
+## The Three Decision Gates for Effects
+
+Every time you consider using `useEffect`, ask these three fundamental questions:
+
+### Q1. Is there an External System?
+
+`useEffect` is primarily designed to synchronize your React component with external systems. What counts as an external system?
+
+- **Database**
+- **DOM** (Document Object Model)
+- **Web Socket**
+- **API**
+
+If the answer is **"YES,"** proceed to Question 2. If the answer is **"NO,"** you likely don't need an effect.
+
+If you are only dealing with calculations based on properties (props) or state that already exist within React, you do not need an effect.
+
+### Q2. Who Triggers This?
+
+If an external system is involved, you must determine the trigger:
+
+<table>
+  <thead>
+    <tr>
+      <th>Trigger</th>
+      <th>Solution</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <strong>User action</strong> (e.g., clicking a button)
+      </td>
+      <td>
+        <strong>Event Handler</strong>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <strong>Derived from props/state</strong>
+      </td>
+      <td>
+        <strong>Calculate Directly</strong> during rendering
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <strong>Component mounting / data changing</strong> (e.g., initial data
+        fetch)
+      </td>
+      <td>
+        <code>useEffect</code>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+If an action happens because a user **"has done something"** or **"has clicked something,"** you likely need an **"Event handler,"** not an effect.
+
+If the value you are computing is derived directly from props or state (like calculating a `fullName` from `firstName` and `lastName`), you should calculate it directly during the render cycle, not inside an effect.
+
+If you are performing side effects based on the component mounting or prop/state changes, then `useEffect` is the correct tool.
+
+### Q3. Does it Need Cleanup?
+
+If your effect performs an action that allocates a resource or creates a persistent connection, it requires cleanup to prevent resource leaks. If the component unmounts, that resource must be released.
+
+<table>
+  <thead>
+    <tr>
+      <th>Effect Logic</th>
+      <th>Cleanup Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <strong>Subscription</strong> (e.g., Web Socket)
+      </td>
+      <td>
+        <strong>
+          <code>Unsubscribe</code>
+        </strong>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <strong>Network Request</strong> (e.g., <code>fetch</code>)
+      </td>
+      <td>
+        <strong>
+          <code>AbortController</code>
+        </strong>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <strong>Timer/Interval</strong>
+      </td>
+      <td>
+        <strong>
+          <code>Clear Timer</code>
+        </strong>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <strong>Event Listener</strong> (e.g., on <code>window</code>)
+      </td>
+      <td>
+        <strong>
+          <code>Remove Listener</code>
+        </strong>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+---
+
+## Addressing the Top Failures in Existing Code
+
+Through reviewing real-world codebases, certain errors in effect usage appear repeatedly. These fall into distinct categories that waste performance and introduce bugs.
+
+### Failure Bucket 1: Dependency Mismanagement
+
+The most common category of mistakes revolves around managing dependencies within the effect's dependency array.
+
+#### Mistake 1: Skipping the Dependency Array (Infinite Loop)
+
+This occurs when a state update is triggered inside an effect, and that effect is not controlled by a dependency array, causing the component to perpetually re-render. This results in an **"infinite render problem."**
+
+#### Mistake 2: Stale State Values (The Flicker Problem)
+
+Even when using an empty dependency array (`[]`) for component mounting logic, if you try to immediately update state inside the effect, you introduce a temporary flicker.
+
+Example:
+
+```tsx
+function Component() {
+  const [count, setCount] = useState(0);
+  useEffect(() => {
+    setCount(count + 1);
+  }, []);
+  return <div>{count}</div>;
+}
+```
+
+The effect runs _after_ the initial render has been painted using the initial state value (e.g., `count = 0`). The subsequent state update then causes a second render with the corrected value (e.g., `count = 1`). **"So you wasted a render."**
+
+#### Mistake 3: Forgetting Dependencies (Stale Props/State)
+
+When fetching data based on props, omitting that prop from the dependency array means the effect will only run once on mount, regardless of changes to the prop.
+
+```javascript
+// DON'T DO THIS
+function Temp2({ userId }) {
+  // ...
+  useEffect(() => {
+    fetchUser(userId);
+  }, []); // Missing userId dependency!
+  // ...
+}
+```
+
+If the `userId` prop changes, the effect will not re-run, and the component will be stuck using the stale data fetched with the original `userId`. The fix is simple: **add `userId` to the dependency array.**
+
+#### Mistake 4: Unstable Dependencies (Objects and Functions)
+
+Objects and functions created during render are treated as new references by JavaScript on every render, even if their contents haven't changed. Including them in the dependency array will cause the effect to re-run unnecessarily, leading to excessive data fetching.
+
+```javascript
+// DON'T DO THIS: User is an unstable object reference
+const user = { userId: 123, profile: {} /* ... some big object */ };
+// ...
+useEffect(() => {
+  fetchUser(user);
+}, [user]);
+```
+
+To fix this, only pass the stable primitive properties you need, such as `user.id`. **"Instead of adding the entire object in your dependency, only add this the actual property that you need."**
+
+The same logic applies to functions. If you define a function inside your component and use it in `useEffect`, it becomes an unstable dependency. The solution is to memoize it using `useCallback`:
+
+```javascript
+// Use useCallback for unstable function references
+const fetchUserProfileMemoized = useCallback(
+  () => {
+    // fetch logic
+  },
+  [
+    /* dependencies */
+  ],
+);
+
+useEffect(() => {
+  fetchUserProfileMemoized();
+}, [fetchUserProfileMemoized]);
+```
+
+**Note:** With React Compiler enabled in modern React versions (like React 17,React 18,React 19), explicit memoization using `useCallback` or `useMemo` for internal functions may become unnecessary, as the compiler can handle this automatically.\*
+
+### Failure Bucket 2: Misusing Effects for Derived State
+
+#### Mistake 1: Calculating Derived State in `useEffect`
+
+This is perhaps the most frequent misuse of the hook. If you need to update one piece of state based on changes to props or another piece of state, you should derive it directly during rendering.
+
+For instance, calculating a `fullName` from `firstName` and `lastName` inside an effect is considered redundant and unnecessary:
+
+```javascript
+// AVOID: Redundant state and unnecessary effect
+const [firstName, setFirstName] = useState('Taylor');
+const [fullName, setFullName] = useState('');
+
+useEffect(() => {
+  setFullName(firstName + ' ' + lastName);
+}, [firstName, lastName]);
+```
+
+The correct approach is to **"calculate it during rendering"**:
+
+```javascript
+// CORRECT: Calculated during rendering
+const [firstName, setFirstName] = useState('Taylor');
+const [lastName, setLastName] = useState('Swift');
+
+const fullName = firstName + ' ' + lastName;
+```
+
+If you are using `useState` and `useEffect` **"just to do some calculations on the prop, you can do that in render itself and skip a `useEffect` and `useState`."**
+
+This is also mentioned in the React documentation:
+[https://react.dev/learn/you-might-not-need-an-effect](https://react.dev/learn/you-might-not-need-an-effect)
+
+#### Mistake 2: Unnecessary State Resetting/Caching
+
+Using `useEffect` to reset cached state variables when certain props change is also an anti-pattern.
+
+```javascript
+// AVOID: Unnecessary state reset inside effect
+function Temp2({ hackathon }) {
+  const [judgeDetailsCache, setJudgeDetailsCache] = useState([]);
+  // ...
+  useEffect(() => {
+    // Clear caches when hackathon changes
+    setJudgeDetailsCache([]);
+    setPanelAssignmentsCache([]);
+  }, [hackathon]);
+  // ...
+}
+```
+
+Since the component re-renders when `hackathon` (a prop) updates, the `useState` calls will already reset the state back to its initial values (`[]`). The effect is **"actually unnecessary"** here.
+
+### Failure Bucket 3: Failing to Clean Up Asynchronous Operations
+
+Failing to properly handle cleanup for external system interactions is a serious mistake that leads to memory leaks and unexpected behavior.
+
+#### Mistake 1: Failing to Cancel Fetch Requests
+
+When performing data fetching, failing to cancel the request if the component unmounts while the request is still pending can lead to a state update on an unmounted component—a classic memory leak scenario.
+
+If you see the console error **"Can't perform a React state update on an unmounted component,"** that means **"there is memory leaks happening in your component."**
+
+To fix this, you must use an `AbortController` and return a cleanup function that aborts the request:
+
+```javascript
+useEffect(
+  () => {
+    const controller = new AbortController();
+    fetch(URL, { signal: controller.signal });
+    // ... then continue with response handling
+
+    return () => {
+      controller.abort(); // Cleanup function cancels the request on unmount/re-render
+    };
+  },
+  [
+    /* dependencies */
+  ],
+);
+```
+
+### Mistake 2: Setting State after Request Completion (Stale Data)
+
+Even with the `AbortController`, if you update multiple pieces of state upon request completion, you might still risk a memory leak if the component unmounts right before the response is processed.
+
+A common pattern uses a mutable flag, like `isMounted`, managed within the cleanup function:
+
+```javascript
+useEffect(() => {
+  let isMounted = true;
+  // ... fetch logic ...
+    .then(data => {
+      if (isMounted) {
+        setNewsData(postsData);
+        // ... set other states
+      }
+    });
+
+  return () => {
+    isMounted = false; // Set to false on cleanup
+    // ... abort controller logic
+  };
+}, [/* dependencies */]);
+```
+
+This way, you **"check to make sure that the component is mounted before we call any set state[s]."**
+
+### Mistake 3: Failing to Remove Event Listeners
+
+If your effect adds an external event listener (e.g., to the `window` or `document`), you must remove it in the cleanup function to prevent it from leaking memory and causing unintended side effects across your application.
+
+```javascript
+useEffect(() => {
+  window.addEventListener('resize', onResize);
+
+  return () => {
+    // Make sure we remove event listener on unmount
+    window.removeEventListener('resize', onResize);
+  };
+}, [onResize]);
+```
+
+---
+
+### Advanced Solutions for Specific Tasks
+
+While the existing effect system is powerful when used correctly, new hooks are emerging to solve previously thorny synchronization problems elegantly.
+
+#### Scenario: When You Need Immediate Layout Measurement
+
+Remember, `useEffect` runs _after_ the browser paints. If you are dealing with DOM manipulation or measurement—such as calculating a tooltip's position—you need to run the logic _before_ the visible paint step to avoid flickering.
+
+In these specific scenarios, using `useLayoutEffect` is the correct approach. `useLayoutEffect` is a version of `useEffect` that **"fires before the browser repaints the screen."**
+
+#### Mistake: Using `useEffect` for Event-Specific Logic
+
+If you use `useEffect` to watch for a state change that was triggered by a user action (like showing a notification when an item is added to a cart), you're misapplying the hook.
+
+```javascript
+// AVOID: Event-specific logic inside an effect
+useEffect(() => {
+  if (product.isInCart) {
+    showNotification(`Added ${product.name} to the shopping cart!`);
+  }
+}, [product.isInCart]);
+```
+
+This logic belongs directly in the event handler function that triggered the cart change. The documentation confirms that this is **"a common misapplication of `useEffect`"** and should be managed via an **"Event Handler."**
+
+#### Mistake: Over-Initializing Libraries
+
+If you initialize an entire third-party library or service that should only run once per application load, putting that logic in every component via `useEffect` is inefficient.
+
+```javascript
+// AVOID: Initializing app-level services in component effects
+useEffect(() => {
+  initFacebookPixel();
+  mermaid.initialize({...});
+}, []);
+```
+
+Instead, this global initialization should be moved to a single high-level component, such as `App.tsx`, and wrapped with a flag to ensure it only runs once per session.
+
+### Bonus: `useEffectEvent` for Non-Reactive Logic (React 19.2+)
+
+For complex scenarios like tracking analytics, where you need to read the latest props/state values without forcing the effect to re-run every time those values change, React has introduced `useEffectEvent`.
+
+The `useEffectEvent` hook **"lets you extract non-reactive logic from your Effects into a reusable function called an Effect Event."**
+
+By wrapping the tracking logic in `useEffectEvent`, you ensure that the event handler function always reads the latest props (like `step` and `enhancedMetadata`) without needing to add them to the effect's dependency array. This prevents needless re-runs while maintaining data integrity.
+
+---
+
+Fixing these common mistakes will lead to cleaner, faster, and more maintainable React applications. While data fetching libraries offer convenient solutions for many of the cleanup and caching problems associated with `useEffect`, understanding the core rules of the hook is essential for mastering React development.
