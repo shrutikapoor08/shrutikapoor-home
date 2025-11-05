@@ -1,15 +1,14 @@
 import Link from 'next/link';
-import Image from 'next/image';
 import ArrowIcon from './ArrowIcon';
 
 const FeaturedBlogs = ({ posts }) => (
   <main className="w-full flex flex-col mt-24 mb-24 overflow-hidden">
     <div className="flex flex-row justify-between mb-10">
-      <h2 className="text-xl lg:text-3xl w-auto"> Latest Blog Posts </h2>
+      <h2 className="text-xl lg:text-3xl w-auto"> Latest Posts </h2>
 
       <Link href="/blog" legacyBehavior passHref>
         <span className="border-0 focus:outline-none hover:text-blue-600 lg:hover:font-bold rounded text-base md:text-md cursor-pointer hover:underline">
-          Read all articles
+          Check all posts
         </span>
       </Link>
     </div>
