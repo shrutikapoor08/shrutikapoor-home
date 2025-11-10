@@ -1,0 +1,313 @@
+---
+title: Top JavaScript Interview Questions for Senior Engineers (2025)
+description: 'Learn solutions to popular JavaScript interview questions like LRU Cache, Debounce, Throttle, EventEmitter, Array Flattening, and Memoization. Beginner-friendly explanations and code samples!'
+date: September 5, 2025
+featuredImage: https://i.ytimg.com/vi_webp/SLWNw5Btqyw/maxresdefault.webp
+tags: Education, GPT, Technology, OpenAI, "GPT-5", "Frontend", "AI", "React", "JavaScript", "Developer", "Review"
+---
+
+<iframe
+  width="720"
+  height="360"
+  src="https://www.youtube.com/embed/SLWNw5Btqyw?si=4N6W583TROI4Bnao"
+  title="YouTube video player"
+  frameborder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+  referrerpolicy="strict-origin-when-cross-origin"
+  allowfullscreen
+></iframe>
+
+Welcome! In this blog, we'll explore six of the most commonly asked JavaScript interview questions for senior engineers. Each section includes a clear explanation and code sample to help you master these topics.
+
+If you find this helpful, be sure to check out the complete [31-day JavaScript Interview Series](https://youtube.com/playlist?list=PLPHxMTcSz7K6RUOYD1l-TuXO65OKTjrue&si=Kl51j2hmDoX3n9NE)!
+
+---
+
+## Question 1: LRU Cache (Least Recently Used Cache)
+
+### What is an LRU Cache?
+
+An **LRU cache** stores a limited number of items. When it reaches its capacity and you add a new item, it removes the _least recently used_ item to make space. Accessing (getting) an item makes it the _most recently used_.
+
+### Main Features
+
+- Stores items up to a set `capacity`.
+- Adding a new item when full evicts the least recently used item.
+- Accessing an item moves it to the top (most recently used).
+- If an item doesn't exist, it returns `-1`.
+
+### Implementation
+
+```js
+class LRUCache {
+  constructor(capacity = 2) {
+    this.capacity = capacity;
+    this.cache = new Map();
+  }
+  put(key, value) {
+    if (this.cache.has(key)) {
+      this.cache.delete(key);
+    }
+
+    if (this.cache.size === this.capacity) {
+      // Remove least recently used (first inserted)
+      const firstKey = this.cache.keys().next().value;
+      this.cache.delete(firstKey);
+    }
+
+    this.cache.set(key, value);
+  }
+
+  get(key) {
+    if (!this.cache.has(key)) return -1;
+
+    // Move to top (most recently used)
+    const value = this.cache.get(key);
+    this.cache.delete(key);
+    this.cache.set(key, value);
+
+    return value;
+  }
+}
+```
+
+### Here we use JavaScript `Map` data structure because:
+
+- It has constant O(1) read/write/delete by key.
+- Insertion order tracking -> first inserted = least recently used.
+
+### Usage Example
+
+```js
+const LRU = new LRUCache(2);
+LRU.put(1, 1); // {1 => 1}
+LRU.put(2, 2); // {1 => 1, 2 => 2}
+
+console.log(LRU.get(1)); // returns 1
+console.log(LRU.get(2)); // returns 2
+
+LRU.put(3, 3); // removes key 1 because it's least recently used {2 => 2, 3 => 3}
+console.log(LRU.get(3)); // returns 3
+
+console.log(LRU.get(1)); // returns -1 (not found)
+```
+
+---
+
+## Question 2: Debounce Function
+
+### What is Debouncing?
+
+**Debouncing** prevents a function from running until a certain amount of time has passed since it was last called. For example, it waits for a user to stop typing before running a search.
+
+#### How it Works
+
+- If the function keeps getting called (like during typing), it won't run.
+- Only after the calls stop and the wait time passes, then it runs.
+
+### Implementation
+
+```js
+function debounce(func, wait) {
+  let timeout;
+  return function () {
+    const args = arguments;
+    const thisContext = this;
+
+    if (timeout) clearTimeout(timeout);
+
+    timeout = setTimeout(() => {
+      func.apply(thisContext, args);
+    }, wait);
+  };
+}
+```
+
+### Usage Example
+
+```js
+const debouncedLog = debounce(console.log, 500);
+debouncedLog('Hello');
+```
+
+- If **`debouncedLog()`** is called repeatedly, it only logs once after **500ms** of inactivity.
+
+```js
+const debouncedLog = debounce(console.log, 500);
+debouncedLog('Hello');
+debouncedLog('How are you?');
+debouncedLog('Bye!');
+```
+
+- Here only **`Bye!`** gets logged into the console.
+
+---
+
+## Question 3: Debounce vs Throttle
+
+### Throttling
+
+**Throttling** is a technique used to limit the number of times a function can be executed in a given time interval.
+
+### Debounce v/s Throttling
+
+In Debounce, a function is executed once the an event has been completed for the at least the specified time mentioned.
+Whereas, in Throttle, the function excutes first and then waits for the time interval specified and again excutes.
+
+Also, Throttling ensures a function run at least once in the specified time interval. But with Debounce the function waits for the specified time interval before running again.
+
+### Throttling Implementation
+
+```js
+function throttle(func, delay) {
+  let isThrottled = false;
+
+  return function (...args) {
+    if (isThrottled) return;
+
+    func.apply(this, args);
+    isThrottled = true;
+
+    setTimeout(() => {
+      isThrottled = false;
+    }, delay);
+  };
+}
+```
+
+---
+
+## Question 4: EventEmitter Class
+
+### What is an EventEmitter?
+
+An **EventEmitter** lets you subscribe to events and run callbacks when those events happen (like `scroll`, `type`, etc.).
+
+### Implementation
+
+```js
+class EventEmitter {
+  constructor() {
+    this.events = {};
+  }
+
+  on(event, listener) {
+    if (this.events[event]) {
+      this.events[event].push(listener);
+    } else {
+      this.events[event] = [listener];
+    }
+  }
+
+  off(event, listener) {
+    const listeners = this.events[event];
+
+    if (listeners) {
+      this.events[event] = listener.filter((l) => l !== listener);
+    }
+  }
+
+  emit(event, ...args) {
+    const listeners = this.events[event];
+
+    if (listeners) {
+      listeners.forEach((listener) => listener(...args));
+    }
+  }
+}
+```
+
+### Usage Example
+
+```js
+const emitter = new EventEmitter();
+
+const onScroll = () => console.log('scrolling');
+const onType = () => console.log('typing');
+
+emitter.on('scroll', onScroll);
+emitter.on('type', onType;)
+
+emitter.emit('scroll'); // scrolling
+emitter.off('scroll', onScroll);
+
+emitter.emit('scroll'); // nothing happens
+emitter.off('type', onType); // typing
+```
+
+---
+
+## Question 5: Flattening an Array
+
+### What does it mean to flatten an array?
+
+Flattening an array means converting a multi-level nested array into a single-level array.
+
+### Implementation
+
+```js
+const flatten = (arr) => {
+  return arr.reduce((acc, val) => {
+    if (Array.isArray(val)) {
+      return acc.concat(flatten(val));
+    }
+
+    return acc.concat(val);
+  }, []);
+};
+```
+
+### Usage Example
+
+```js
+console.log(flatten([1, 2, 3])); // [1, 2, 3]
+
+console.log(flatten([1, [2, [3, [4, [5]]]]])); // [1, 2, 3, 4, 5]
+
+console.log(flatten([1, 2, [3, [44, [5]]]])); // [1, 2, 3, 4, 5]
+```
+
+---
+
+## Question 6: Memoization
+
+### What is Memoization?
+
+**Memoization** stores (caches) the results of function calls so that if the same inputs occur again, the result can be returned instantly.
+
+### Implementation
+
+```js
+function memoize(fn) {
+  const cache = new Map();
+
+  return function (...args) {
+    const key = JSON.stringify(args);
+
+    if (cache.has(key)) {
+      console.log('memoized return');
+      return cache.get(key);
+    }
+
+    const result = fn(...args);
+
+    cache.set(key, result);
+    return result;
+  };
+}
+```
+
+### Usage Example
+
+```js
+function add(a, b) {
+  console.log('Calculating sum...');
+  return a + b;
+}
+
+const memoizeAddFn = memoize(add);
+
+console.log(memoizeAddFn(1, 2)); // Calculates and returns 3
+console.log(memoizeAddFn(1, 2)); // Returns cached 3 without calculating
+console.log(memoizeAddFn(2, 3)); // Calculates and returns 5
+```
