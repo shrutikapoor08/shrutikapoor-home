@@ -1,0 +1,113 @@
+---
+title: React Server Components in Next.JS and TanStack Start
+description: 'React Server Components are now the default in Next.js and they’re shipping in TanStack Start. Whether you opted in or not, you’re going to encounter them in 2026. This post walks through how RSCs work in Next.js vs TanStack Start'
+date: May 25, 2026
+featuredImage: https://i.ytimg.com/vi/5QM7XjbqDug/hqdefault.jpg
+tags: React, React Server Components, TanStack, Next.js
+---
+
+React Server Components are now the default in Next.js and they’re shipping in TanStack Start. Whether you opted in or not, you’re going to encounter them in 2026. The good news: the TanStack approach makes RSCs feel like a tool you can opt-in for instead of a paradigm shift like in Next.js.
+
+Let’s look at RSCs in depth -
+
+Your component runs on the server. The server sends back the already-rendered tree as data, called the RSC payload. Not HTML. Not JavaScript. The client reads the payload and renders it. A raw RSC payload looks like this:
+
+```
+M1:{"id":"./ClientChart.js","chunks":["chunk1"],"name":""}
+J0:["$","div",null,{"children":[
+  ["$","h1",null,{"children":"Revenue"}],
+  ["$","@1",null,{"data":{"today":18293.44}}]
+]}]
+```
+M1 says “hey, there’s a client component over here.” J0 is the rendered tree, and @1 points back to that client component. You can see your own at rsc-parser.vercel.app.
+
+If you want a refresher on RSC fundamentals first, here’s my recap video:
+<iframe
+  width="720"
+  height="360"
+  src="https://youtu.be/5QM7XjbqDug?si=7HTe8zzkmSmK9qOP"
+  title="YouTube video player"
+  frameborder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+  referrerpolicy="strict-origin-when-cross-origin"
+  allowfullscreen
+></iframe>
+
+Under the hood, this is two React APIs doing all the work: renderToReadableStream and createFromReadableStream.
+```
+//create RSC payload
+import { renderToReadableStream } from 'react-server-dom-webpack/server'
+
+const stream = renderToReadableStream(<Page />, clientManifest)
+```
+
+```
+//Read RSC payload
+import { createFromFetch } from 'react-server-dom-webpack/client'
+const tree = await createFromFetch(fetch('/rsc?path=/dashboard'))
+// then render {tree} inside your root
+```
+
+That’s the whole magic. Everything any framework does is on top of these two APIs.
+
+### How RSC differs from SSR
+
+This part is most confusing for developers. RSC is different from Server Side Rendering(SSR) since in SSR, a fully-developed HTML is shipped to the client. So you see something fast, then server sends the JavaScript so React can hydrate it and interactivity is added. Same component runs twice, once on the server, once on the client.
+
+RSC sends the RSC payload instead of HTML, and the component code never gets to the client. It runs once.
+
+### React Server Components in Next.js
+
+In Next.js, RSCs are on by default. You don’t do anything to get them. You can mark the parts of your app that are interactive using use client. When a request comes in, Next.js runs your Server Components on the server, serializes the rendered tree into the RSC payload, and streams it down.
+
+However, the framework owns how RSCs are created, where they render, how interactive components are defined. You don’t really see how and when RSCs are created.
+
+### How RSCs are different in TanStack Start
+
+TanStack Start takes a client-first approach. The client decides how a server-rendered UI should be fetched, whether as fully rendered HTML or as streams of data. In TanStack Start, RSCs are streams of data - React Flight streams, not a special part of the framework. Which means you can declaratively incorporate RSCs where you want to instead of getting them by default and then trying to opt-out. TanStack Start.
+
+🔥**RSCs are just streams of bytes in TanStack Start**
+
+The way you create RSCs in TanStack Start is very similar to how React create RSC under the hood. In fact, it is extremely simple -
+
+```
+import {
+  renderToReadableStream,
+} from '@tanstack/react-start/rsc'
+
+// First create a serverFn
+const getGreeting = createServerFn().handler(async () => {
+  // Create an RSC readable stream
+  return renderToReadableStream(
+    // Return JSX
+    <h1>Hello from the server</h1>,
+  )
+})
+```
+
+You can consume this RSC stream on the client using createFromReadableStream -
+
+```
+import {
+  createFromReadableStream,
+} from '@tanstack/react-start/rsc'
+
+function Greeting() {
+  const query = useQuery({
+    queryKey: ['greeting'],
+    queryFn: async () =>
+      // Create a renderable element from the stream
+      createFromReadableStream(
+        // Call our server function to get the stream
+        await getGreeting(),
+      ),
+  })
+
+    return <>{query.data}</>
+```
+(This example is taken directly from the TanStack Start docs.)
+
+🔥 What I love about this is that it is extremely simple, declarative and transparent. I know exactly which streams are RSCs, so I can sprinkle in RSC in my app when I need to, instead of making the entire app an RSC by default.
+
+
+[Read the full TanStack RSC writeup here.](https://tanstack.com/blog/react-server-components)
